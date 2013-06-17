@@ -47,6 +47,7 @@ class JFormFieldPassword extends JFormField
 		$disabled	= ((string) $this->element['disabled'] == 'true') ? ' disabled="disabled"' : '';
 		$meter		= $this->element['strengthmeter'] == 'true';
 		$required   = $this->required ? ' required="required" aria-required="true"' : '';
+		$hint 		= $this->hint ? ' placeholder="' . $this->hint . '"' : '';
 		$threshold	= $this->element['threshold'] ? (int) $this->element['threshold'] : 66;
 
 		$script = '';
