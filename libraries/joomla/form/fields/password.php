@@ -69,6 +69,10 @@ class JFormFieldPassword extends JFormField
 			);
 		}
 
+		// Including fallback code for HTML5 non supported browsers.
+		JHtml::_('jquery.framework');
+		JHtml::_('script', 'system/html5fallback.js', false, true);
+
 		return '<input type="password" name="' . $this->name . '" id="' . $this->id . '"' .
 			' value="' . htmlspecialchars($this->value, ENT_COMPAT, 'UTF-8') . '"' .
 			$auto . $class . $readonly . $disabled . $size . $maxLength . $required . '/>';
