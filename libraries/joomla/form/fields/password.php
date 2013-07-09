@@ -45,10 +45,10 @@ class JFormFieldPassword extends JFormField
 		$size		= $this->element['size'] ? ' size="' . (int) $this->element['size'] . '"' : '';
 		$maxLength	= $this->element['maxlength'] ? ' maxlength="' . (int) $this->element['maxlength'] . '"' : ' maxlength="99"';
 		$class		= $this->element['class'] ? ' class="' . (string) $this->element['class'] . '"' : '';
-		$meter		= $this->element['strengthmeter'] == 'true';
-		$readonly	= $this->readonly ? ' readonly="readonly"' : '';
-		$disabled	= $this->disabled ? ' disabled="disabled"' : '';
-		$required   = $this->required ? ' required="required" aria-required="true"' : '';
+		$readonly	= $this->readonly ? ' readonly' : '';
+		$disabled	= $this->disabled ? ' disabled' : '';
+		$meter		= ((string) $this->element['strengthmeter'] == 'true' ? ' $meter= 1' : ' $meter = 0');
+		$required   = $this->required ? ' required aria-required="true"' : '';
 		$hint 		= $hint ? ' placeholder="' . $hint . '"' : '';
 		$threshold	= $this->element['threshold'] ? (int) $this->element['threshold'] : 66;
 		$autocomplete = !$this->autocomplete ? ' autocomplete="off"' : '';
