@@ -79,12 +79,7 @@ class JFormFieldPassword extends JFormField
 		JHtml::_('script', 'system/html5fallback.js', false, true);
 
 		return '<input type="password" name="' . $this->name . '" id="' . $this->id . '"' .
-<<<<<<< HEAD
-		' value="' . htmlspecialchars($this->value, ENT_COMPAT, 'UTF-8') . '"' . $hint . $autocomplete . 
-			$auto . $class . $readonly . $disabled . $size . $maxLength . $required . $autofocus . '/>';
-=======
-			' value="' . htmlspecialchars($this->value, ENT_COMPAT, 'UTF-8') . '"' . $hint . $autocomplete . 
-			$class . $readonly . $disabled . $size . $maxLength . $required . $autofocus . '/>' . $script;
->>>>>>> Evaluating disabled and readonly in JFormField class rather then many a times in different base class while generating input.
+			' value="' . htmlspecialchars($this->value, ENT_COMPAT, 'UTF-8') . '"' . $hint . $autocomplete .
+			$class . $readonly . $disabled . $size . $maxLength . $required . $autofocus . '/>';
 	}
 }
