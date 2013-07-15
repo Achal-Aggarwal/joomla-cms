@@ -43,7 +43,6 @@ class JFormFieldRadio extends JFormField
 		$class = $this->element['class'] ? ' class="radio ' . (string) $this->element['class'] . '"' : ' class="radio"';
 		$required = $this->required ? ' required="required" aria-required="true"' : '';
 
-
 		// Start the radio field output.
 		$html[] = '<fieldset id="' . $this->id . '"' . $class . $required . '>';
 
