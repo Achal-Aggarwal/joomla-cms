@@ -38,7 +38,7 @@ class JFormFieldPassword extends JFormField
 	 */
 	protected function getInput()
 	{
-		//Translate placeholder text
+		// Translate placeholder text
 		$hint = $this->translateHint ? JText::_($this->hint) : $this->hint;
 
 		// Initialize some field attributes.
