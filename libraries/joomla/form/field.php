@@ -277,6 +277,7 @@ abstract class JFormField
 		if (!isset($this->type))
 		{
 			$parts = JStringNormalise::fromCamelCase(get_called_class(), true);
+
 			if ($parts[0] == 'J')
 			{
 				$this->type = JString::ucfirst($parts[count($parts) - 1], '_');
@@ -411,12 +412,16 @@ abstract class JFormField
 		$this->inputmode = '';
 
 		$inputmode = explode(' ', $inputmode);
+
 		if (!empty($inputmode))
 		{
 			$defaultInputmode = in_array('default', $inputmode) ? JText::_("JLIB_FORM_INPUTMODE") . ' ' : '';
-			foreach (array_keys($inputmode, 'default') as $key) {
-			    unset($inputmode[$key]);
+
+			foreach (array_keys($inputmode, 'default') as $key)
+			{
+				unset($inputmode[$key]);
 			}
+
 			$this->inputmode = $defaultInputmode . implode(" ", $inputmode);
 		}
 
@@ -432,13 +437,13 @@ abstract class JFormField
 		// Set the field hint text.
 		$this->hint = (string) $element['hint'];
 
-		//Determine whether to automatically fill the field or not.
+		// Determine whether to automatically fill the field or not.
 		$this->autocomplete = !($autocomplete == 'false' || $autocomplete == 'off' || $autocomplete == '0');
 
-		//Determine whether to set focus on the field automatically or not.
+		// Determine whether to set focus on the field automatically or not.
 		$this->autofocus = ($autofocus == 'true' || $autofocus == 'on' || $autofocus == '1');
 
-		//Determine whether to off spellcheck or not.
+		// Determine whether to off spellcheck or not.
 		$this->spellcheck = !($spellcheck == 'false' || $spellcheck == 'off' || $spellcheck == '0');
 
 		// Set the visibility.
@@ -539,7 +544,6 @@ abstract class JFormField
 
 		if ($this->hidden)
 		{
-
 			return $title;
 		}
 
@@ -622,6 +626,7 @@ abstract class JFormField
 		{
 			// If we already have a name segment add the group control as another level.
 			$groups = explode('.', $this->group);
+
 			if ($name)
 			{
 				foreach ($groups as $group)
@@ -632,6 +637,7 @@ abstract class JFormField
 			else
 			{
 				$name .= array_shift($groups);
+
 				foreach ($groups as $group)
 				{
 					$name .= '[' . $group . ']';
@@ -689,6 +695,7 @@ abstract class JFormField
 		else
 		{
 			self::$count = self::$count + 1;
+
 			return self::$generated_fieldname . self::$count;
 		}
 	}
