@@ -273,6 +273,13 @@ abstract class JFormField
 			case 'labelClass':
 			case 'fieldname':
 			case 'group':
+			case 'disabled':
+			case 'readonly':
+			case 'autofocus':
+			case 'autocomplete':
+			case 'spellcheck':
+			case 'hint':
+			case 'dirname':
 				return $this->$name;
 
 			case 'input':
