@@ -43,8 +43,8 @@ class JFormFieldPassword extends JFormField
 
 		// Initialize some field attributes.
 		$size		= $this->element['size'] ? ' size="' . (int) $this->element['size'] . '"' : '';
-		$maxLength	= $this->element['maxlength'] ? ' maxlength="' . (int) $this->element['maxlength'] . '"' : ' maxlength="99"';
-		$class		= $this->element['class'] ? ' class="' . (string) $this->element['class'] . '"' : '';
+		$maxLength	= $this->element['maxlength'] ? ' maxlength="' . (int) $this->element['maxlength'] . '"' : '99';
+		$class 		= !empty($this->class) ? ' class="' . $this->class . '"' : '';
 		$readonly	= $this->readonly ? ' readonly' : '';
 		$disabled	= $this->disabled ? ' disabled' : '';
 		$meter		= ((string) $this->element['strengthmeter'] == 'true' ? ' $meter= 1' : ' $meter = 0');
