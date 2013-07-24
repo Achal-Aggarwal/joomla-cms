@@ -30,6 +30,55 @@ class JFormFieldPassword extends JFormField
 	protected $type = 'Password';
 
 	/**
+	 * The threshold of password field.
+	 *
+	 * @var    int
+	 * @since  11.1
+	 */
+	protected $threshold = 66;
+
+	/**
+	 * The allowable maxlength of password.
+	 *
+	 * @var    int
+	 * @since  11.1
+	 */
+	protected $maxLength;
+
+	/**
+	 * Whether to attach a password strength meter or not.
+	 *
+	 * @var    boolean
+	 * @since  11.1
+	 */
+	protected $meter = false;
+
+	/**
+	 * Method to attach a JForm object to the field.
+	 *
+	 * @param   SimpleXMLElement  $element  The SimpleXMLElement object representing the <field /> tag for the form field object.
+	 * @param   mixed             $value    The form field value to validate.
+	 * @param   string            $group    The field name group control value. This acts as as an array container for the field.
+	 *                                      For example if the field has name="foo" and the group value is set to "bar" then the
+	 *                                      full field name would end up being "bar[foo]".
+	 *
+	 * @return  boolean  True on success.
+	 *
+	 * @see 	JFormField::setup()
+	 * @since   11.1
+	 */
+	public function setup(SimpleXMLElement $element, $value, $group = null)
+	{
+		$this->maxlength 	= $element['maxlength'] ? (int) $element['maxlength'] : 99;
+		$this->threshold	= $element['threshold'] ? (int) $element['threshold'] : 66;
+
+		$meter = (string) $element['strengthmeter'];
+		$this->meter = ($meter == 'true' || $meter == 'on' || $meter == '1');
+
+		return parent::setup($element, $value, $group);
+	}
+
+	/**
 	 * Method to get the field input markup for password.
 	 *
 	 * @return  string  The field input markup.
@@ -42,26 +91,24 @@ class JFormFieldPassword extends JFormField
 		$hint = $this->translateHint ? JText::_($this->hint) : $this->hint;
 
 		// Initialize some field attributes.
-		$size		= $this->element['size'] ? ' size="' . (int) $this->element['size'] . '"' : '';
-		$maxLength	= $this->element['maxlength'] ? ' maxlength="' . (int) $this->element['maxlength'] . '"' : '99';
+		$size		= !empty($this->size) ? ' size="' . $this->size . '"' : '';
+		$maxLength	= !empty($this->maxlength) ? ' maxlength="' . $this->maxlength . '"' : '';
 		$class 		= !empty($this->class) ? ' class="' . $this->class . '"' : '';
 		$readonly	= $this->readonly ? ' readonly' : '';
 		$disabled	= $this->disabled ? ' disabled' : '';
-		$meter		= ((string) $this->element['strengthmeter'] == 'true' ? ' $meter= 1' : ' $meter = 0');
 		$required   = $this->required ? ' required aria-required="true"' : '';
 		$hint 		= $hint ? ' placeholder="' . $hint . '"' : '';
-		$threshold	= $this->element['threshold'] ? (int) $this->element['threshold'] : 66;
 		$autocomplete = !$this->autocomplete ? ' autocomplete="off"' : '';
 		$autofocus = $this->autofocus ? ' autofocus' : '';
 
 		$script = '';
 
-		if ($meter)
+		if ($this->meter)
 		{
 			JHtml::_('script', 'system/passwordstrength.js', true, true);
 			$script = 'new Form.PasswordStrength("' . $this->id . '",
 				{
-					threshold: ' . $threshold . ',
+					threshold: ' . $this->threshold . ',
 					onUpdate: function(element, strength, threshold) {
 						element.set("data-passwordstrength", strength);
 					}
