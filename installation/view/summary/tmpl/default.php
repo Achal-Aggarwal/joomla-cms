@@ -27,7 +27,7 @@ $prev = $useftp ? 'ftp' : 'database';
 
 	<h3><?php echo JText::_('INSTL_FINALISATION'); ?></h3>
 	<hr class="hr-condensed" />
-
+	<?php echo $this->form->getInput('db_type'); ?>
 	<div class="control-group">
 		<div class="control-label">
 			<?php echo $this->form->getLabel('sample_file'); ?>
