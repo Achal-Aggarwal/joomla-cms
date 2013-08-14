@@ -34,6 +34,8 @@ class JDatabaseDriverTest extends TestCaseDatabase
 	 */
 	protected function setUp()
 	{
+		parent::setup();
+
 		$this->db = JDatabaseDriver::getInstance(
 			array(
 				'driver' => 'nosql',
@@ -41,6 +43,11 @@ class JDatabaseDriverTest extends TestCaseDatabase
 				'prefix' => '&',
 			)
 		);
+
+		if (empty($this->db))
+		{
+			$this->markTestSkipped('There is no database driver.');
+		}
 	}
 
 	/**

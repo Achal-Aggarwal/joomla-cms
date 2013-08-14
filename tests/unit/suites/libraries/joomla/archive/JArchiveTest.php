@@ -19,6 +19,26 @@ require_once __DIR__ . '/JArchiveTestCase.php';
  */
 class JArchiveTest extends JArchiveTestCase
 {
+	protected static $outputPath;
+
+	/**
+	 * Sets up the fixture, for example, opens a network connection.
+	 * This method is called before a test is executed.
+	 *
+	 * @return mixed
+	 */
+	protected function setUp()
+	{
+		parent::setUp();
+
+		self::$outputPath = __DIR__ . '/output';
+
+		if (!is_dir(self::$outputPath))
+		{
+			mkdir(self::$outputPath, 0777);
+		}
+	}
+
 	/**
 	 * Tests extracting ZIP.
 	 *

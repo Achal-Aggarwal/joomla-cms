@@ -40,8 +40,7 @@ class FinderIndexerTest extends TestCaseDatabase
 	 */
 	protected function setUp()
 	{
-		// Store the factory state so we can mock the necessary objects
-		$this->saveFactoryState();
+		parent::setup();
 
 		JFactory::$application = $this->getMockApplication();
 		JFactory::$session     = $this->getMockSession();
@@ -52,16 +51,6 @@ class FinderIndexerTest extends TestCaseDatabase
 
 		// Register the object
 		$this->object = FinderIndexer::getInstance();
-	}
-
-	/**
-	 * Tears down the fixture, for example, closes a network connection.
-	 * This method is called after a test is executed.
-	 */
-	protected function tearDown()
-	{
-		// Restore the factory state
-		$this->restoreFactoryState();
 	}
 
 	/**
