@@ -22,6 +22,14 @@ abstract class TestCase extends PHPUnit_Framework_TestCase
 	protected $expectedErrors;
 
 	/**
+	 * Backup of the SERVER superglobal
+	 *
+	 * @var    array
+	 * @since  3.1
+	 */
+	protected $backupServer;
+
+	/**
 	 * @var         array  JError handler state stashed away to be restored later.
 	 * @deprecated  13.1
 	 * @since       12.1
@@ -458,6 +466,13 @@ abstract class TestCase extends PHPUnit_Framework_TestCase
 		$this->setExpectedError();
 
 		parent::setUp();
+
+		$this->saveFactoryState();
+
+		$this->backupServer = $_SERVER;
+
+		$_SERVER['HTTP_HOST'] = 'example.com';
+		$_SERVER['SCRIPT_NAME'] = '';
 	}
 
 	/**
@@ -470,6 +485,10 @@ abstract class TestCase extends PHPUnit_Framework_TestCase
 	 */
 	protected function tearDown()
 	{
+		$_SERVER = $this->backupServer;
+
+		$this->restoreFactoryState();
+
 		if (is_array($this->expectedErrors) && !empty($this->expectedErrors))
 		{
 			$this->fail('An expected error was not raised.');

@@ -26,6 +26,14 @@ abstract class TestCaseDatabase extends PHPUnit_Extensions_Database_TestCase
 	protected static $driver;
 
 	/**
+	 * Backup of the SERVER superglobal
+	 *
+	 * @var    array
+	 * @since  3.1
+	 */
+	protected $backupServer;
+
+	/**
 	 * @var    JDatabaseDriver  The saved database driver to be restored after these tests.
 	 * @since  12.1
 	 */
@@ -495,5 +503,29 @@ abstract class TestCaseDatabase extends PHPUnit_Extensions_Database_TestCase
 		}
 
 		parent::setUp();
+
+		$this->saveFactoryState();
+
+		$this->backupServer = $_SERVER;
+
+		$_SERVER['HTTP_HOST'] = 'example.com';
+		$_SERVER['SCRIPT_NAME'] = '';
+	}
+
+	/**
+	 * Overrides the parent tearDown method.
+	 *
+	 * @return  void
+	 *
+	 * @see     PHPUnit_Framework_TestCase::tearDown()
+	 * @since   11.1
+	 */
+	protected function tearDown()
+	{
+		$_SERVER = $this->backupServer;
+
+		$this->restoreFactoryState();
+
+		parent::tearDown();
 	}
 }

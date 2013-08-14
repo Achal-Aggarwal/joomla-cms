@@ -34,34 +34,15 @@ class JHtmlBootstrapTest extends TestCase
 	 */
 	protected function setUp()
 	{
+		parent::setUp();
+
 		// Ensure the loaded states are reset
 		JHtmlBootstrapInspector::resetLoaded();
 		JHtmlJqueryInspector::resetLoaded();
 
-		$this->saveFactoryState();
-
 		JFactory::$application = $this->getMockApplication();
 		JFactory::$document = $this->getMockDocument();
 
-		$this->backupServer = $_SERVER;
-
-		$_SERVER['HTTP_HOST'] = 'example.com';
-		$_SERVER['SCRIPT_NAME'] = '';
-	}
-
-	/**
-	 * Tears down the fixture, for example, closes a network connection.
-	 * This method is called after a test is executed.
-	 *
-	 * @return  void
-	 *
-	 * @since   3.1
-	 */
-	protected function tearDown()
-	{
-		$_SERVER = $this->backupServer;
-
-		$this->restoreFactoryState();
 	}
 
 	/**

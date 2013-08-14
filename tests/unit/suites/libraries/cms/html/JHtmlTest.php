@@ -28,22 +28,7 @@ class JHtmlTest extends TestCase
 	{
 		parent::setUp();
 
-		$this->saveFactoryState();
-	}
-
-	/**
-	 * Tears down the fixture, for example, closes a network connection.
-	 * This method is called after a test is executed.
-	 *
-	 * @return  void
-	 *
-	 * @since   3.1
-	 */
-	protected function tearDown()
-	{
-		$this->restoreFactoryState();
-
-		parent::tearDown();
+		JFactory::$application = $this->getMockApplication();
 	}
 
 	/**
@@ -252,10 +237,10 @@ class JHtmlTest extends TestCase
 	/**
 	 * Tests the link method.
 	 *
-	 * @param   string $url       The href for the anchor tag.
-	 * @param   string $text      The text for the anchor tag.
-	 * @param   mixed  $attribs   A string or array of link attributes.
-	 * @param   string $expected  The expected result.
+	 * @param   string  $url       The href for the anchor tag.
+	 * @param   string  $text      The text for the anchor tag.
+	 * @param   mixed   $attribs   A string or array of link attributes.
+	 * @param   string  $expected  The expected result.
 	 *
 	 * @return  void
 	 *
@@ -276,15 +261,7 @@ class JHtmlTest extends TestCase
 	 */
 	public function testImage()
 	{
-		if (!is_array($_SERVER))
-		{
-			$_SERVER = array();
-		}
-
 		// We save the state of $_SERVER for later and set it to appropriate values.
-		$http_host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : null;
-		$script_name = isset($_SERVER['SCRIPT_NAME']) ? $_SERVER['SCRIPT_NAME'] : null;
-		$_SERVER['HTTP_HOST'] = 'example.com';
 		$_SERVER['SCRIPT_NAME'] = '/index.php';
 
 		// These are some paths to pass to JHtml for testing purposes.
@@ -308,6 +285,7 @@ class JHtmlTest extends TestCase
 		{
 			mkdir(JPATH_THEMES . '/' . $template . '/images/' . $urlpath, 0777, true);
 		}
+
 		file_put_contents(JPATH_THEMES . '/' . $template . '/images/' . $urlpath . $urlfilename, 'test');
 
 		// We do a test for the case that the image is in the templates directory.
@@ -335,6 +313,7 @@ class JHtmlTest extends TestCase
 		{
 			mkdir(dirname(JPATH_ROOT . '/media/' . $urlpath . 'images/' . $urlfilename), 0777, true);
 		}
+
 		file_put_contents(JPATH_ROOT . '/media/' . $urlpath . 'images/' . $urlfilename, 'test');
 
 		// We do a test for the case that the image is in the media directory.
@@ -359,6 +338,7 @@ class JHtmlTest extends TestCase
 		{
 			mkdir(dirname(JPATH_ROOT . '/media/system/images/' . $urlfilename), 0777, true);
 		}
+
 		file_put_contents(JPATH_ROOT . '/media/system/images/' . $urlfilename, 'test');
 
 		$this->assertThat(
@@ -501,9 +481,6 @@ class JHtmlTest extends TestCase
 			$this->equalTo('<img src="" alt="My Alt Text" width="150" height="150" />'),
 			'JHtml::image with an absolute path, URL does not start with http'
 		);
-
-		$_SERVER['HTTP_HOST'] = $http_host;
-		$_SERVER['SCRIPT_NAME'] = $script_name;
 	}
 
 	/**
@@ -539,11 +516,11 @@ class JHtmlTest extends TestCase
 	/**
 	 * Tests the iframe method.
 	 *
-	 * @param   string $url       iframe URL
-	 * @param   string $name      URL name
-	 * @param   string $attribs   iframe attribs
-	 * @param   string $noFrames  replacement for no frames
-	 * @param   string $expected  expected value
+	 * @param   string  $url       iframe URL
+	 * @param   string  $name      URL name
+	 * @param   string  $attribs   iframe attribs
+	 * @param   string  $noFrames  replacement for no frames
+	 * @param   string  $expected  expected value
 	 *
 	 * @return  void
 	 *
@@ -568,15 +545,6 @@ class JHtmlTest extends TestCase
 	 */
 	public function testScript()
 	{
-		if (!is_array($_SERVER))
-		{
-			$_SERVER = array();
-		}
-
-		// We save the state of $_SERVER for later and set it to appropriate values
-		$http_host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : null;
-		$script_name = isset($_SERVER['SCRIPT_NAME']) ? $_SERVER['SCRIPT_NAME'] : null;
-		$_SERVER['HTTP_HOST'] = 'example.com';
 		$_SERVER['SCRIPT_NAME'] = '/index.php';
 
 		// These are some paths to pass to JHtml for testing purposes.
@@ -628,6 +596,7 @@ class JHtmlTest extends TestCase
 		{
 			mkdir(dirname(JPATH_ROOT . '/media/' . $urlpath . 'js/' . $urlfilename), 0777, true);
 		}
+
 		file_put_contents(JPATH_ROOT . '/media/' . $urlpath . 'js/' . $urlfilename, 'test');
 
 		// We do a test for the case that the js is in the media directory.
@@ -655,6 +624,7 @@ class JHtmlTest extends TestCase
 		{
 			mkdir(dirname(JPATH_ROOT . '/media/system/js/' . $urlfilename), 0777, true);
 		}
+
 		file_put_contents(JPATH_ROOT . '/media/system/js/' . $urlfilename, 'test');
 
 		// We do a test for the case that the js is in the media directory.
@@ -927,9 +897,6 @@ class JHtmlTest extends TestCase
 		unlink(JPATH_ROOT . '/media/system/js/' . $element . '/' . $urlpath . 'script1-uncompressed.js');
 		rmdir(JPATH_ROOT . '/media/system/js/' . $element . '/' . $urlpath);
 		rmdir(JPATH_ROOT . '/media/system/js/' . $element);
-
-		$_SERVER['HTTP_HOST'] = $http_host;
-		$_SERVER['SCRIPT_NAME'] = $script_name;
 	}
 
 	/**
@@ -954,15 +921,6 @@ class JHtmlTest extends TestCase
 	 */
 	public function testStylesheet()
 	{
-		if (!is_array($_SERVER))
-		{
-			$_SERVER = array();
-		}
-
-		// We save the state of $_SERVER for later and set it to appropriate values.
-		$http_host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : null;
-		$script_name = isset($_SERVER['SCRIPT_NAME']) ? $_SERVER['SCRIPT_NAME'] : null;
-		$_SERVER['HTTP_HOST'] = 'example.com';
 		$_SERVER['SCRIPT_NAME'] = '/index.php';
 
 		// These are some paths to pass to JHtml for testing purposes.
@@ -1013,6 +971,7 @@ class JHtmlTest extends TestCase
 		{
 			mkdir(dirname(JPATH_ROOT . '/media/' . $urlpath . 'css/' . $urlfilename), 0777, true);
 		}
+
 		file_put_contents(JPATH_ROOT . '/media/' . $urlpath . 'css/' . $urlfilename, 'test');
 
 		// We do a test for the case that the css is in the media directory.
@@ -1039,6 +998,7 @@ class JHtmlTest extends TestCase
 		{
 			mkdir(dirname(JPATH_ROOT . '/media/system/css/' . $urlfilename), 0777, true);
 		}
+
 		file_put_contents(JPATH_ROOT . '/media/system/css/' . $urlfilename, 'test');
 
 		// We do a test for the case that the css is in the media directory.
@@ -1130,6 +1090,7 @@ class JHtmlTest extends TestCase
 		{
 			mkdir(JPATH_ROOT . '/media/system/css/' . $element . '/' . $urlpath, 0777, true);
 		}
+
 		file_put_contents(JPATH_ROOT . '/media/system/css/' . $element . '/' . $urlpath . $urlfilename, 'test');
 
 		JHtml::stylesheet($extension . '/' . $element . '/' . $urlpath . $urlfilename, array(), true);
@@ -1169,6 +1130,7 @@ class JHtmlTest extends TestCase
 		{
 			mkdir(JPATH_ROOT . '/media/system/css/' . $element . '/' . $urlpath, 0777, true);
 		}
+
 		file_put_contents(JPATH_ROOT . '/media/system/css/' . $element . '/' . $urlpath . $urlfilename, 'test');
 		file_put_contents(JPATH_ROOT . '/media/system/css/' . $element . '/' . $urlpath . 'style1_mybrowser.css', 'test');
 		file_put_contents(JPATH_ROOT . '/media/system/css/' . $element . '/' . $urlpath . 'style1_mybrowser_0.css', 'test');
@@ -1334,9 +1296,6 @@ class JHtmlTest extends TestCase
 		unlink(JPATH_ROOT . '/media/system/css/' . $element . '/' . $urlpath . $urlfilename);
 		rmdir(JPATH_ROOT . '/media/system/css/' . $element . '/' . $urlpath);
 		rmdir(JPATH_ROOT . '/media/system/css/' . $element);
-
-		$_SERVER['HTTP_HOST'] = $http_host;
-		$_SERVER['SCRIPT_NAME'] = $script_name;
 	}
 
 	/**
@@ -1361,15 +1320,6 @@ class JHtmlTest extends TestCase
 	 */
 	public function testTooltip()
 	{
-		if (!is_array($_SERVER))
-		{
-			$_SERVER = array();
-		}
-
-		// We save the state of $_SERVER for later and set it to appropriate values
-		$http_host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : null;
-		$script_name = isset($_SERVER['SCRIPT_NAME']) ? $_SERVER['SCRIPT_NAME'] : null;
-		$_SERVER['HTTP_HOST'] = 'example.com';
 		$_SERVER['SCRIPT_NAME'] = '/index.php';
 
 		// We generate a random template name so that we don't collide or hit anything
