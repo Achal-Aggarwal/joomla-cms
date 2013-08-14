@@ -127,12 +127,12 @@ class JArchiveTest extends JArchiveTestCase
 			return;
 		}
 
-		JArchive::extract(__DIR__ . '/logo.gz', self::$outputPath . '/logo-gz.png');
-		$this->assertTrue(is_file(self::$outputPath . '/logo-gz.png'));
+		JArchive::extract(__DIR__ . '/logo.gz', self::$outputPath . '/logo-gz');
+		$this->assertTrue(is_file(self::$outputPath . '/logo-gz/logo'));
 
-		if (is_file(self::$outputPath . '/logo-gz.png'))
+		if (is_file(self::$outputPath . '/logo-gz/logo'))
 		{
-			unlink(self::$outputPath . '/logo-gz.png');
+			unlink(self::$outputPath . '/logo-gz/logo');
 		}
 	}
 
@@ -164,12 +164,12 @@ class JArchiveTest extends JArchiveTestCase
 			return;
 		}
 
-		JArchive::extract(__DIR__ . '/logo.bz2', self::$outputPath . '/logo-bz2.png');
-		$this->assertTrue(is_file(self::$outputPath . '/logo-bz2.png'));
+		JArchive::extract(__DIR__ . '/logo.bz2', self::$outputPath . '/logo-bz2');
+		$this->assertTrue(is_file(self::$outputPath . '/logo-bz2/logo'));
 
-		if (is_file(self::$outputPath . '/logo-bz2.png'))
+		if (is_file(self::$outputPath . '/logo-bz2/logo'))
 		{
-			unlink(self::$outputPath . '/logo-bz2.png');
+			unlink(self::$outputPath . '/logo-bz2/logo');
 		}
 	}
 
