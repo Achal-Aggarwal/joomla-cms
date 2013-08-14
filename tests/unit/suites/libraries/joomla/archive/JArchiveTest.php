@@ -40,6 +40,24 @@ class JArchiveTest extends JArchiveTestCase
 	}
 
 	/**
+	 * Tears down the fixture, for example, closes a network connection.
+	 * This method is called after a test is executed.
+	 *
+	 * @return  void
+	 *
+	 * @since   3.1
+	 */
+	protected function tearDown()
+	{
+		if (is_dir(self::$outputPath))
+		{
+			rmdir(self::$outputPath);
+		}
+
+		parent::tearDown();
+	}
+
+	/**
 	 * Tests extracting ZIP.
 	 *
 	 * @return  void
@@ -127,7 +145,7 @@ class JArchiveTest extends JArchiveTestCase
 			return;
 		}
 
-		JArchive::extract(__DIR__ . '/logo.gz', self::$outputPath . '/logo-gz');
+		JArchive::extract(__DIR__ . '/logo.gz', self::$outputPath . '/logo-gz/logo');
 		$this->assertTrue(is_file(self::$outputPath . '/logo-gz/logo'));
 
 		if (is_file(self::$outputPath . '/logo-gz/logo'))

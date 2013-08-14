@@ -50,10 +50,18 @@ class JArchiveTarTest extends JArchiveTestCase
 	 * Tears down the fixture, for example, closes a network connection.
 	 * This method is called after a test is executed.
 	 *
-	 * @return void
+	 * @return  void
+	 *
+	 * @since   3.1
 	 */
 	protected function tearDown()
 	{
+		if (is_dir(self::$outputPath))
+		{
+			rmdir(self::$outputPath);
+		}
+
+		parent::tearDown();
 	}
 
 	/**
