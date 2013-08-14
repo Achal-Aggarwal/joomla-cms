@@ -24,6 +24,12 @@ class JCacheStorageTest extends TestCase
 	protected $object;
 
 	/**
+	 * @var    JConfig
+	 * @access protected
+	 */
+	protected $config;
+
+	/**
 	 * @var errors
 	 * @access protected
 	 */
@@ -79,8 +85,14 @@ class JCacheStorageTest extends TestCase
 	 */
 	protected function setUp()
 	{
+		parent::setUp();
+
 		include_once JPATH_PLATFORM . '/joomla/cache/cache.php';
 		include_once JPATH_PLATFORM . '/joomla/cache/storage.php';
+
+		$this->config = new JObject;
+		JFactory::$config = $this->config;
+		$this->config->set('cachetime', 15);
 
 		$this->saveErrorHandlers();
 		$this->setErrorCallback('JCacheStorageTest');
@@ -115,6 +127,8 @@ class JCacheStorageTest extends TestCase
 	protected function tearDown()
 	{
 		$this->restoreErrorHandlers();
+
+		parent::tearDown();
 	}
 
 	/**
@@ -133,8 +147,8 @@ class JCacheStorageTest extends TestCase
 					'application' => null,
 					'language' => 'en-GB',
 					'locking' => true,
-					'lifetime' => null,
 					'cachebase' => JPATH_BASE . '/cache',
+					'lifetime' => null,
 					'now' => time(),
 				),
 				'JCacheStorageFile',
@@ -206,11 +220,6 @@ class JCacheStorageTest extends TestCase
 
 		$this->object = JCacheStorage::getInstance($handler, $options);
 
-		if (class_exists('JTestConfig'))
-		{
-			$config = new JTestConfig;
-		}
-
 		$this->assertThat(
 			$this->object,
 			$this->isInstanceOf($expClass),
@@ -237,9 +246,7 @@ class JCacheStorageTest extends TestCase
 
 		$this->assertThat(
 			$this->object->_lifetime,
-
-			// @todo remove: $this->equalTo(empty($options['lifetime']) ? $config->get('cachetime')*60 : $options['lifetime']*60),
-			$this->equalTo(60),
+			$this->equalTo(!isset($options['lifetime']) ? $this->config->get('cachetime') * 60 : $options['lifetime'] * 60),
 			'Unexpected value for _lifetime.'
 		);
 
