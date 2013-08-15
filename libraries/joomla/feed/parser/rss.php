@@ -189,9 +189,14 @@ class JFeedParserRss extends JFeedParser
 	 */
 	protected function handleLink(JFeed $feed, SimpleXMLElement $el)
 	{
-		$link = new JFeedLink;
-		$link->uri = (string) $el;
-		$feed->link = $link;
+		$feed_link = (string) $el;
+
+		if (!empty($feed_link))
+		{
+			$link = new JFeedLink;
+			$link->uri = $feed_link;
+			$feed->link = $link;
+		}
 	}
 
 	/**
