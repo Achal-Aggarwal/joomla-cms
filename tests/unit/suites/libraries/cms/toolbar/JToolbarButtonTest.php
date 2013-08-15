@@ -41,24 +41,7 @@ class JToolbarButtonTest extends TestCase
 		$this->toolbar = JToolbar::getInstance();
 		$this->object  = $this->toolbar->loadButtonType('standard');
 
-		$this->saveFactoryState();
-
 		JFactory::$application = $this->getMockApplication();
-	}
-
-	/**
-	 * Tears down the fixture, for example, closes a network connection.
-	 * This method is called after a test is executed.
-	 *
-	 * @return  void
-	 *
-	 * @since   3.1
-	 */
-	protected function tearDown()
-	{
-		$this->restoreFactoryState();
-
-		parent::tearDown();
 	}
 
 	/**

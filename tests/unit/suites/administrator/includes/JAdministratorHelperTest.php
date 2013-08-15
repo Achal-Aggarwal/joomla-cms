@@ -10,6 +10,7 @@ require_once JPATH_ADMINISTRATOR . '/includes/helper.php';
 
 /**
  * Test class for JAdministratorHelper.
+ *
  */
 class JAdministratorHelperTest extends TestCase
 {
@@ -24,8 +25,7 @@ class JAdministratorHelperTest extends TestCase
 	 */
 	protected function setUp()
 	{
-		//$this->object = new JErrorPage;
-		$this->saveFactoryState();
+		parent::setup();
 
 		JFactory::$application = $this->getMockApplication();
 		$this->user = $this->getMock('Observer', array('get', 'authorise'));
@@ -33,15 +33,6 @@ class JAdministratorHelperTest extends TestCase
 		JFactory::$application->expects($this->once())
 			->method('getIdentity')
 			->will($this->returnValue($this->user));
-	}
-
-	/**
-	 * Tears down the fixture, for example, closes a network connection.
-	 * This method is called after a test is executed.
-	 */
-	protected function tearDown()
-	{
-		$this->restoreFactoryState();
 	}
 
 	/**

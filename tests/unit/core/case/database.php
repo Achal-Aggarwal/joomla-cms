@@ -501,15 +501,17 @@ abstract class TestCaseDatabase extends PHPUnit_Extensions_Database_TestCase
 		{
 			$this->markTestSkipped('There is no database driver.');
 		}
+		else
+		{
+			parent::setUp();
 
-		parent::setUp();
+			$this->saveFactoryState();
 
-		$this->saveFactoryState();
+			$this->backupServer = $_SERVER;
 
-		$this->backupServer = $_SERVER;
-
-		$_SERVER['HTTP_HOST'] = 'example.com';
-		$_SERVER['SCRIPT_NAME'] = '';
+			$_SERVER['HTTP_HOST'] = 'example.com';
+			$_SERVER['SCRIPT_NAME'] = '';
+		}
 	}
 
 	/**
@@ -522,10 +524,13 @@ abstract class TestCaseDatabase extends PHPUnit_Extensions_Database_TestCase
 	 */
 	protected function tearDown()
 	{
-		$_SERVER = $this->backupServer;
+		if (!empty(static::$driver))
+		{
+			$_SERVER = $this->backupServer;
 
-		$this->restoreFactoryState();
+			$this->restoreFactoryState();
 
-		parent::tearDown();
+			parent::tearDown();
+		}
 	}
 }
