@@ -289,9 +289,11 @@ class JFeedParserRssTest extends TestCase
 
 		TestReflection::invoke($this->_instance, 'handleLink', $feed, $el);
 
+		$expected = new JFeedLink('http://domain.com/path/to/resource');
+
 		$this->assertEquals(
 			'http://domain.com/path/to/resource',
-			$feed->uri
+			$feed->link->uri
 		);
 	}
 
