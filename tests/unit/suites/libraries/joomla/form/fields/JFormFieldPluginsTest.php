@@ -57,7 +57,7 @@ class JFormFieldPluginsTest extends TestCaseDatabase
 		if (!is_null(self::$driver))
 		{
 			$this->assertThat(
-				strlen($formField->input),
+				strlen($field->input),
 				$this->greaterThan(0),
 				'Line:' . __LINE__ . ' The getInput method should return something without error.'
 			);
