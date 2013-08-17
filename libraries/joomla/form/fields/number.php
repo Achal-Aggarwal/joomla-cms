@@ -46,7 +46,7 @@ class JFormFieldNumber extends JFormField
 	protected $min = 0;
 
 	/**
-	 * The step y which value of the field increased or decreased.
+	 * The step by which value of the field increased or decreased.
 	 *
 	 * @var    float
 	 * @since  11.1
@@ -91,9 +91,9 @@ class JFormFieldNumber extends JFormField
 	 */
 	public function setup(SimpleXMLElement $element, $value, $group = null)
 	{
-		$this->max = (float) $element['max'];
-		$this->min = (float) $element['min'];
-		$this->step = (float) $element['step'];
+		$this->max = isset($element['max']) ? (float) $element['max'] : 100;
+		$this->min = isset($element['min']) ? (float) $element['min'] : 0;
+		$this->step = isset($element['step']) ? (float) $element['step'] : 1;
 
 		return parent::setup($element, $value, $group);
 	}
