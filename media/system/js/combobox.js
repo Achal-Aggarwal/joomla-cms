@@ -33,7 +33,8 @@
 			self.$dropBtn = self.$dropBtnDiv.find('[type="button"]');
 			self.$dropDown = $(elem).find('ul.dropdown-menu'),
 			self.$dropDownOptions = self.$dropDown.find('li a');
-
+			self.$dropDown.isEmpty = false;
+			self.$dropBtn.isClicked = false;
 			render();
 
 			addEventHandlers();
@@ -73,12 +74,13 @@
 			});
 
 			self.$dropBtn.on('click', focusCombo);
+
 			self.$dropDown.find('li').click(updateCombo);
 		},
 
 		drop = function()
 		{
-			if(!self.$dropDown.hasClass('empty'))
+			if(!self.$dropDown.isEmpty)
 			{
 				var dropDownHeight = self.$dropDown.height(),
 					inputClientHeight = self.$input[0].clientHeight,
@@ -102,10 +104,20 @@
 		{
 			self.$elem.removeClass('nav-hover');
 			self.$dropBtnDiv.removeClass('open');
+
+			if(self.$dropBtn.isClicked)
+			{
+				self.$dropBtn.isClicked = false;
+				self.$dropDown.isEmpty = true;
+			}
 		},
 
 		focusCombo = function()
 		{
+			var $options = self.$dropDownOptions;
+			$options.show();
+			self.$dropBtn.isClicked = self.$dropDown.isEmpty;
+			self.$dropDown.isEmpty = false;
 			self.$input.focus();
 		},
 
@@ -138,12 +150,12 @@
 
 			if(hiddenOptions == $options.length)
 			{
-				self.$dropDown.addClass('empty');
+				self.$dropDown.isEmpty = true;
 				pick();
 			}
 			else
 			{
-				self.$dropDown.removeClass('empty');
+				self.$dropDown.isEmpty = false;
 				drop();
 			}
 		},
