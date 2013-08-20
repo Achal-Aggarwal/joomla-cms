@@ -57,19 +57,28 @@ class JFormFieldCombo extends JFormFieldList
 		// Load the combobox behavior.
 		JHtml::_('behavior.combobox');
 
+		$html[] = '<div class="combobox input-append">';
+
 		// Build the input for the combo box.
 		$html[] = '<input type="text" name="' . $this->name . '" id="' . $this->id . '" value="'
-			. htmlspecialchars($this->value, ENT_COMPAT, 'UTF-8') . '"' . $attr . '/>';
+			. htmlspecialchars($this->value, ENT_COMPAT, 'UTF-8') . '"' . $attr . ' autocomplete="off" />';
+
+		$html[] = '<div class="btn-group">';
+		$html[] = '<button type="button" class="btn dropdown-toggle">';
+		$html[] = '		<span class="caret"></span>';
+		$html[] = '</button>';
 
 		// Build the list for the combo box.
-		$html[] = '<ul id="combobox-' . $this->id . '" style="display:none;">';
+		$html[] = '<ul class="dropdown-menu">';
 
 		foreach ($options as $option)
 		{
-			$html[] = '<li>' . $option->text . '</li>';
+			$html[] = '<li><a href="#">' . $option->text . '</a></li>';
 		}
 
 		$html[] = '</ul>';
+
+		$html[] = '</div></div>';
 
 		return implode($html);
 	}
