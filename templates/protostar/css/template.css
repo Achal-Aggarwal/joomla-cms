@@ -1981,6 +1981,7 @@ table th[class*="span"],
 }
 .dropdown-menu > li > a:hover,
 .dropdown-menu > li > a:focus,
+.dropdown-menu > li > a.hover,
 .dropdown-submenu:hover > a,
 .dropdown-submenu:focus > a {
 	text-decoration: none;
