@@ -22,7 +22,7 @@
 {
 	var combobox = function(options, elem)
 	{
-		var self={},
+		var self = {},
 
 		init = function(options, elem)
 		{
@@ -67,9 +67,10 @@
 			}
 
 			self.$dropDown.on('mouseenter',function() {
+				highlight('clear');
 				self.$input.unbind('blur', pick);
 			});
-			self.$dropDown.on('mouseleave',function() {
+			self.$dropDown.on('mouseleave',function(event) {
 				self.$input.bind('blur', pick);
 			});
 
@@ -110,6 +111,8 @@
 				self.$dropBtn.isClicked = false;
 				self.$dropDown.isEmpty = true;
 			}
+
+			highlight('clear');
 		},
 
 		focusCombo = function()
@@ -131,32 +134,94 @@
 
 		updateList = function(event)
 		{
-			var text = self.$input.val(),
-				$options = self.$dropDownOptions,
-				value = new RegExp(text, 'i'),
-				hiddenOptions = 0;
-			$options.each(function()
-			{
-				 if(value.test(this.innerHTML))
-				 {
-				 	$(this).show();
-				 }
-				 else
-				 {
-				 	$(this).hide();
-				 	hiddenOptions++;
-				 }
-			});
+			var keycode = event && (event.keycode || event.which);
+			keycode = event.ctrlKey || event.altKey ? -1 : keycode;
 
-			if(hiddenOptions == $options.length)
+			if ((keycode > 47 && keycode < 59) || (keycode > 62 && keycode < 127) || keycode == 32  || keycode == 8)
 			{
-				self.$dropDown.isEmpty = true;
-				pick();
+				var text = self.$input.val().toLowerCase(),
+					$options = self.$dropDownOptions,
+					hiddenOptions = 0,
+					moveHilighter = false;
+				$options.each(function()
+				{
+					 if(this.innerHTML.toLowerCase().indexOf(text) == 0)
+					 {
+					 	$(this).show();
+					 }
+					 else
+					 {
+					 	$(this).hide();
+					 	if($(this).hasClass('hover'))
+					 	{
+					 		moveHilighter = true;
+					 	}
+
+					 	hiddenOptions++;
+					 }
+				});
+
+				if(hiddenOptions == $options.length)
+				{
+					self.$dropDown.isEmpty = true;
+					pick();
+				}
+				else
+				{
+					self.$dropDown.isEmpty = false;
+					if(moveHilighter)
+					{
+						highlight("clear");
+					}
+					drop();
+				}
 			}
-			else
+			else if(!self.$dropDown.isEmpty)
 			{
-				self.$dropDown.isEmpty = false;
-				drop();
+				// Change selected option in list
+				if(keycode == 38 || keycode == 37)
+				{
+					highlight("prev");
+				}
+				else if(keycode == 40 || keycode == 39)
+				{
+					highlight("next");
+				}
+			}
+		},
+
+		highlight = function(newHighlight)
+		{
+			if(newHighlight == "next" || newHighlight == "prev")
+			{
+				var $visibleOptions = self.$dropDownOptions.filter(':visible'),
+					$currHovered = $visibleOptions.filter('.hover'),
+					index = $visibleOptions.index($currHovered),
+					$optionToHover;
+
+				// Change selected option in list
+				if(newHighlight == "prev")
+				{
+					index = index == -1 ? $visibleOptions.length -1 :  index - 1;
+				}
+				else
+				{
+					index = index == $visibleOptions.length - 1 ? 0 : index + 1;				
+				}
+				
+				if($currHovered.length != 0)
+				{
+					$currHovered.removeClass('hover');
+				}
+
+				$optionToHover = $visibleOptions.eq(index);
+				self.$currHovered = $optionToHover;
+				self.$currHovered.addClass('hover');
+			}
+			else if(newHighlight == "clear")
+			{
+				self.$currHovered != null ? self.$currHovered.removeClass('hover') : null;
+				self.$currHovered = null;
 			}
 		},
 
