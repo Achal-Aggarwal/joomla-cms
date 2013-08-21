@@ -76,7 +76,14 @@
 
 			self.$dropBtn.on('click', focusCombo);
 
-			self.$dropDown.find('li').click(updateCombo);
+			self.$dropDown.find('li').on('click', updateCombo);
+			self.$dropDown.find('li a').on('mouseenter', function(){
+				$(this).addClass('hover');
+				self.$currHovered = $(this);
+			});
+			self.$dropDown.find('li a').on('mouseleave', function(){
+				$(this).removeClass('hover');
+			});
 		},
 
 		drop = function()
@@ -98,6 +105,9 @@
 				{
 					self.$dropDown.css('top',dropDownTop+'px');
 				}
+
+				// Prevent form submit on enter press
+				self.$input.bind('keypress keydown keyup', preventSubmit);
 			}
 		},
 
@@ -113,6 +123,8 @@
 			}
 
 			highlight('clear');
+
+			self.$input.unbind('keypress keydown keyup', preventSubmit);
 		},
 
 		focusCombo = function()
@@ -179,13 +191,18 @@
 			else if(!self.$dropDown.isEmpty)
 			{
 				// Change selected option in list
-				if(keycode == 38 || keycode == 37)
+				if(keycode == 38)
 				{
 					highlight("prev");
 				}
-				else if(keycode == 40 || keycode == 39)
+				else if(keycode == 40)
 				{
 					highlight("next");
+				}
+				else if(keycode == 13 && self.$currHovered != null)
+				{
+					self.$input.val(self.$currHovered.html());
+					pick();
 				}
 			}
 		},
@@ -226,7 +243,8 @@
 		},
 
 		// Helper functions
-		inViewport = function(el) {
+		inViewport = function(el)
+		{
 		    var rect = el[0].getBoundingClientRect();
 		    return (
 		        rect.top >= 0 &&
@@ -234,6 +252,14 @@
 		        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && /*or $(window).height() */
 		        rect.right <= (window.innerWidth || document.documentElement.clientWidth) /*or $(window).width() */
 		        );
+		},
+
+		preventSubmit = function(event)
+		{
+			if(event.keyCode == 13)
+			{ 
+				event.preventDefault();
+			}
 		};
 
 		init(options, elem);
