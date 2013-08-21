@@ -19,7 +19,7 @@ defined('JPATH_PLATFORM') or die;
 abstract class JFormField
 {
 	/**
-	 * The description text for the form field.  Usually used in tooltips.
+	 * The description text for the form field. Usually used in tooltips.
 	 *
 	 * @var    string
 	 * @since  11.1
@@ -43,7 +43,7 @@ abstract class JFormField
 	protected $inputmode;
 
 	/**
-	 * The autocomplete of state for the form field. If 'off' element will not be automatically
+	 * The autocomplete state for the form field. If 'off' element will not be automatically
 	 * completed by browser.
 	 *
 	 * @var    mixed
@@ -52,8 +52,7 @@ abstract class JFormField
 	protected $autocomplete = 'on';
 
 	/**
-	 * The autocomplete of state for the form field. If true element will be automatically
-	 * completed by browser otherwise not.
+	 * The spellcheck state for the form field.
 	 *
 	 * @var    boolean
 	 * @since  11.1
@@ -191,7 +190,7 @@ abstract class JFormField
 	protected $group;
 
 	/**
-	 * The required state for the form field.  If true then there must be a value for the field to
+	 * The required state for the form field. If true then there must be a value for the field to
 	 * be considered valid.
 	 *
 	 * @var    boolean
@@ -200,7 +199,7 @@ abstract class JFormField
 	protected $required = false;
 
 	/**
-	 * The disabled state for the form field.  If true then the field will be disabled and user can't
+	 * The disabled state for the form field. If true then the field will be disabled and user can't
 	 * interact with the field.
 	 *
 	 * @var    boolean
@@ -209,7 +208,7 @@ abstract class JFormField
 	protected $disabled = false;
 
 	/**
-	 * The readonly state for the form field.  If true then the field will be readonly.
+	 * The readonly state for the form field. If true then the field will be readonly.
 	 *
 	 * @var    boolean
 	 * @since  11.1
@@ -225,7 +224,7 @@ abstract class JFormField
 	protected $type;
 
 	/**
-	 * The validation method for the form field.  This value will determine which method is used
+	 * The validation method for the form field. This value will determine which method is used
 	 * to validate the value for a field.
 	 *
 	 * @var    string
