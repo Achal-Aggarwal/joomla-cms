@@ -30,7 +30,7 @@ class JFormFieldCalendar extends JFormField
 	protected $type = 'Calendar';
 
 	/**
-	 * The allowable maxlength of password.
+	 * The allowable maxlength of calendar field.
 	 *
 	 * @var    int
 	 * @since  11.1
@@ -46,7 +46,7 @@ class JFormFieldCalendar extends JFormField
 	protected $format;
 
 	/**
-	 * The format of date and time.
+	 * The filter.
 	 *
 	 * @var    int
 	 * @since  11.1
