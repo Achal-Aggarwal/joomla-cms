@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+require_once __DIR__ . '/TestHelpers/JHtmlFieldCheckbox-helper-dataset.php';
+
 /**
  * Test class for JFormFieldCheckbox.
  *
@@ -66,6 +68,18 @@ class JFormFieldCheckboxTest extends TestCase
 	}
 
 	/**
+	 * Test...
+	 *
+	 * @return  array
+	 *
+	 * @since   3.1
+	 */
+	public function getInputData()
+	{
+		return JHtmlFieldCheckboxTest_DataSet::$getInputTest;
+	}
+
+	/**
 	 * Tests checked attribute setup by JFormField::setup method
 	 *
 	 * @covers JFormFieldCheckbox::setup
@@ -96,179 +110,28 @@ class JFormFieldCheckboxTest extends TestCase
 	 * Test the getInput method where there is no value from the element
 	 * and no checked attribute.
 	 *
+	 * @param   array   $data  	   @todo
+	 * @param   string  $expected  @todo
+	 *
 	 * @return  void
 	 *
 	 * @since   12.2
+	 *
+	 * @dataProvider  getInputData
 	 */
-	public function testGetInputNoValueNoChecked()
+	public function testGetInput($data, $expected)
 	{
 		$formField = new JFormFieldCheckbox;
 
-		TestReflection::setValue($formField, 'id', 'myTestId');
-		TestReflection::setValue($formField, 'name', 'myTestName');
+		foreach ($data as $attr => $value)
+		{
+			TestReflection::setValue($formField, $attr, $value);
+		}
 
 		$this->assertEquals(
-			'<input type="checkbox" name="myTestName" id="myTestId" value="1" />',
+			$expected,
 			TestReflection::invoke($formField, 'getInput'),
 			'Line:' . __LINE__ . ' The field with no value and no checked attribute did not produce the right html'
-		);
-	}
-
-	/**
-	 * Test the getInput method where there is a value from the element
-	 * and no checked attribute.
-	 *
-	 * @return  void
-	 *
-	 * @since   12.2
-	 */
-	public function testGetInputValueNoChecked()
-	{
-		$formField = new JFormFieldCheckbox;
-\
-		TestReflection::setValue($formField, 'id', 'myTestId');
-		TestReflection::setValue($formField, 'name', 'myTestName');
-		TestReflection::setValue($formField, 'default', 'red');
-		TestReflection::setValue($formField, 'value', 'red');
-
-		$this->assertEquals(
-			'<input type="checkbox" name="myTestName" id="myTestId" value="red" checked />',
-			TestReflection::invoke($formField, 'getInput'),
-			'Line:' . __LINE__ . ' The field with a value and no checked attribute did not produce the right html'
-		);
-	}
-
-	/**
-	 * Test the getInput method where there is a checked attribute
-	 *
-	 * @return  void
-	 *
-	 * @since   12.2
-	 */
-	public function testGetInputNoValueChecked()
-	{
-		$formField = new JFormFieldCheckbox;
-
-		TestReflection::setValue($formField, 'id', 'myTestId');
-		TestReflection::setValue($formField, 'name', 'myTestName');
-		TestReflection::setValue($formField, 'default', 'red');
-		TestReflection::setValue($formField, 'checked', true);
-
-		$this->assertEquals(
-			'<input type="checkbox" name="myTestName" id="myTestId" value="red" checked />',
-			TestReflection::invoke($formField, 'getInput'),
-			'Line:' . __LINE__ . ' The field with no value and the checked attribute did not produce the right html'
-		);
-	}
-
-	/**
-	 * Test the getInput method where the field is disabled
-	 *
-	 * @return  void
-	 *
-	 * @since   12.2
-	 */
-	public function testGetInputDisabled()
-	{
-		$formField = new JFormFieldCheckbox;
-
-		TestReflection::setValue($formField, 'id', 'myTestId');
-		TestReflection::setValue($formField, 'name', 'myTestName');
-		TestReflection::setValue($formField, 'disabled', true);
-
-		$this->assertEquals(
-			'<input type="checkbox" name="myTestName" id="myTestId" value="1" disabled />',
-			TestReflection::invoke($formField, 'getInput'),
-			'Line:' . __LINE__ . ' The field set to disabled did not produce the right html'
-		);
-	}
-
-	/**
-	 * Test the getInput method where the field is required
-	 *
-	 * @return  void
-	 *
-	 * @since   12.2
-	 */
-	public function testGetInputRequired()
-	{
-		$formField = new JFormFieldCheckbox;
-
-		TestReflection::setValue($formField, 'id', 'myTestId');
-		TestReflection::setValue($formField, 'name', 'myTestName');
-		TestReflection::setValue($formField, 'required', true);
-
-		$this->assertEquals(
-			'<input type="checkbox" name="myTestName" id="myTestId" value="1" required aria-required="true" />',
-			TestReflection::invoke($formField, 'getInput'),
-			'Line:' . __LINE__ . ' The field set to required did not produce the right html'
-		);
-	}
-
-	/**
-	 * Test the getInput method where the field is autofocussed
-	 *
-	 * @return  void
-	 *
-	 * @since   12.2
-	 */
-	public function testGetInputAutofocus()
-	{
-		$formField = new JFormFieldCheckbox;
-
-		TestReflection::setValue($formField, 'id', 'myTestId');
-		TestReflection::setValue($formField, 'name', 'myTestName');
-		TestReflection::setValue($formField, 'autofocus', true);
-
-		$this->assertEquals(
-			'<input type="checkbox" name="myTestName" id="myTestId" value="1" autofocus />',
-			TestReflection::invoke($formField, 'getInput'),
-			'Line:' . __LINE__ . ' The field set to required did not produce the right html'
-		);
-	}
-
-	/**
-	 * Test the getInput method where the field is having given class
-	 *
-	 * @return  void
-	 *
-	 * @since   12.2
-	 */
-	public function testGetInputClass()
-	{
-		$formField = new JFormFieldCheckbox;
-
-		TestReflection::setValue($formField, 'id', 'myTestId');
-		TestReflection::setValue($formField, 'name', 'myTestName');
-		TestReflection::setValue($formField, 'class', 'foo bar');
-
-		$this->assertEquals(
-			'<input type="checkbox" name="myTestName" id="myTestId" value="1" class="foo bar" />',
-			TestReflection::invoke($formField, 'getInput'),
-			'Line:' . __LINE__ . ' The field set to required did not produce the right html'
-		);
-	}
-
-	/**
-	 * Test the getInput method where the field is having onclick and onchange js functions
-	 *
-	 * @return  void
-	 *
-	 * @since   12.2
-	 */
-	public function testGetInputOnchangeOnclick()
-	{
-		$formField = new JFormFieldCheckbox;
-
-		TestReflection::setValue($formField, 'id', 'myTestId');
-		TestReflection::setValue($formField, 'name', 'myTestName');
-		TestReflection::setValue($formField, 'onclick', 'foo();');
-		TestReflection::setValue($formField, 'onchange', 'bar();');
-
-		$this->assertEquals(
-			'<input type="checkbox" name="myTestName" id="myTestId" value="1" onclick="foo();" onchange="bar();" />',
-			TestReflection::invoke($formField, 'getInput'),
-			'Line:' . __LINE__ . ' The field set to required did not produce the right html'
 		);
 	}
 }

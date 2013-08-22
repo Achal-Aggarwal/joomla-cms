@@ -8,13 +8,13 @@
  */
 
 /**
- * Data set class for JHtmlFieldUrl.
+ * Data set class for JHtmlFieldTextarea.
  *
  * @package     Joomla.UnitTest
  * @subpackage  HTML
  * @since       3.1
  */
-class JHtmlFieldUrlTest_DataSet
+class JHtmlFieldTextareaTest_DataSet
 {
 	static public $getInputTest = array(
 		'NoValue' => array(
@@ -22,16 +22,34 @@ class JHtmlFieldUrlTest_DataSet
 				'id' => 'myTestId',
 				'name' => 'myTestName',
 			),
-			'<input type="url" name="myTestName" id="myTestId" value="" />',
+			'<textarea name="myTestName" id="myTestId" ></textarea>',
 		),
 
 		'Value' => array(
 			array(
 				'id' => 'myTestId',
 				'name' => 'myTestName',
-				'value' => 'http://foobar.com',
+				'value' => 'This is textarea text.',
 			),
-			'<input type="url" name="myTestName" id="myTestId" value="http://foobar.com" />',
+			'<textarea name="myTestName" id="myTestId" >This is textarea text.</textarea>',
+		),
+
+		'Rows' => array(
+			array(
+				'id' => 'myTestId',
+				'name' => 'myTestName',
+				'rows' => 55,
+			),
+			'<textarea name="myTestName" id="myTestId" rows="55" ></textarea>',
+		),
+
+		'Columns' => array(
+			array(
+				'id' => 'myTestId',
+				'name' => 'myTestName',
+				'columns' => 55,
+			),
+			'<textarea name="myTestName" id="myTestId" cols="55" ></textarea>',
 		),
 
 		'Class' => array(
@@ -40,16 +58,7 @@ class JHtmlFieldUrlTest_DataSet
 				'name' => 'myTestName',
 				'class' => 'foo bar',
 			),
-			'<input type="url" name="myTestName" class="foo bar" id="myTestId" value="" />',
-		),
-
-		'Size' => array(
-			array(
-				'id' => 'myTestId',
-				'name' => 'myTestName',
-				'size' => 60,
-			),
-			'<input type="url" name="myTestName" id="myTestId" value="" size="60" />',
+			'<textarea name="myTestName" id="myTestId" class="foo bar" ></textarea>',
 		),
 
 		'Disabled' => array(
@@ -58,7 +67,7 @@ class JHtmlFieldUrlTest_DataSet
 				'name' => 'myTestName',
 				'disabled' => true,
 			),
-			'<input type="url" name="myTestName" id="myTestId" value="" disabled />',
+			'<textarea name="myTestName" id="myTestId" disabled ></textarea>',
 		),
 
 		'Readonly' => array(
@@ -67,16 +76,16 @@ class JHtmlFieldUrlTest_DataSet
 				'name' => 'myTestName',
 				'readonly' => true,
 			),
-			'<input type="url" name="myTestName" id="myTestId" value="" readonly />',
+			'<textarea name="myTestName" id="myTestId" readonly ></textarea>',
 		),
 
 		'Hint' => array(
 			array(
 				'id' => 'myTestId',
 				'name' => 'myTestName',
-				'hint' => 'Type any url.',
+				'hint' => 'Placeholder for textarea.',
 			),
-			'<input type="url" name="myTestName" id="myTestId" value="" placeholder="Type any url." />',
+			'<textarea name="myTestName" id="myTestId" placeholder="Placeholder for textarea." ></textarea>',
 		),
 
 		'Autocomplete' => array(
@@ -85,7 +94,7 @@ class JHtmlFieldUrlTest_DataSet
 				'name' => 'myTestName',
 				'autocomplete' => false,
 			),
-			'<input type="url" name="myTestName" id="myTestId" value="" autocomplete="off" />',
+			'<textarea name="myTestName" id="myTestId" autocomplete="off" ></textarea>',
 		),
 
 		'Autofocus' => array(
@@ -94,7 +103,7 @@ class JHtmlFieldUrlTest_DataSet
 				'name' => 'myTestName',
 				'autofocus' => true,
 			),
-			'<input type="url" name="myTestName" id="myTestId" value="" autofocus />',
+			'<textarea name="myTestName" id="myTestId" autofocus ></textarea>',
 		),
 
 		'Spellcheck' => array(
@@ -103,7 +112,7 @@ class JHtmlFieldUrlTest_DataSet
 				'name' => 'myTestName',
 				'spellcheck' => false,
 			),
-			'<input type="url" name="myTestName" id="myTestId" value="" spellcheck="false" />',
+			'<textarea name="myTestName" id="myTestId" spellcheck="false" ></textarea>',
 		),
 
 		'Onchange' => array(
@@ -112,16 +121,16 @@ class JHtmlFieldUrlTest_DataSet
 				'name' => 'myTestName',
 				'onchange' => 'foobar();',
 			),
-			'<input type="url" name="myTestName" id="myTestId" value="" onchange="foobar();" />',
+			'<textarea name="myTestName" id="myTestId" onchange="foobar();" ></textarea>',
 		),
 
-		'Maxlength' => array(
+		'Onclick' => array(
 			array(
 				'id' => 'myTestId',
 				'name' => 'myTestName',
-				'maxLength' => 250,
+				'onclick' => 'barfoo();',
 			),
-			'<input type="url" name="myTestName" id="myTestId" value="" maxlength="250" />',
+			'<textarea name="myTestName" id="myTestId" onclick="barfoo();" ></textarea>',
 		),
 
 		'Required' => array(
@@ -130,8 +139,7 @@ class JHtmlFieldUrlTest_DataSet
 				'name' => 'myTestName',
 				'required' => true,
 			),
-			'<input type="url" name="myTestName" id="myTestId" value="" required aria-required="true" />',
+			'<textarea name="myTestName" id="myTestId" required aria-required="true" ></textarea>',
 		),
-
 	);
 }
