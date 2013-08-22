@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+require_once __DIR__ . '/TestHelpers/JHtmlFieldTextarea-helper-dataset.php';
+
 /**
  * Test class for JForm.
  *
@@ -67,7 +69,19 @@ class JFormFieldTextareaTest extends TestCase
 	}
 
 	/**
-	 * Tests maxLength attribute setup by JFormFieldText::setup method
+	 * Test...
+	 *
+	 * @return  array
+	 *
+	 * @since   3.1
+	 */
+	public function getInputData()
+	{
+		return JHtmlFieldTextareaTest_DataSet::$getInputTest;
+	}
+
+	/**
+	 * Tests rows and columns attribute setup by JFormFieldTextare::setup method
 	 *
 	 * @covers JFormField::setup
 	 * @covers JFormField::__get
@@ -102,238 +116,28 @@ class JFormFieldTextareaTest extends TestCase
 	/**
 	 * Test the getInput method where there is no value from the element.
 	 *
-	 * @return  void
-	 *
-	 * @since   12.2
-	 */
-	public function testGetInputNoValue()
-	{
-		$formField = new JFormFieldTextarea;
-
-		TestReflection::setValue($formField, 'id', 'myTestId');
-		TestReflection::setValue($formField, 'name', 'myTestName');
-
-		$this->assertEquals(
-			'<textarea name="myTestName" id="myTestId" ></textarea>',
-			TestReflection::invoke($formField, 'getInput'),
-			'Line:' . __LINE__ . ' The field with no value attribute did not produce the right html'
-		);
-	}
-
-	/**
-	 * Test the getInput method where there is value from the element.
+	 * @param   array   $data  	   @todo
+	 * @param   string  $expected  @todo
 	 *
 	 * @return  void
 	 *
 	 * @since   12.2
+	 *
+	 * @dataProvider  getInputData
 	 */
-	public function testGetInputValue()
+	public function testGetInput($data, $expected)
 	{
 		$formField = new JFormFieldTextarea;
 
-		TestReflection::setValue($formField, 'id', 'myTestId');
-		TestReflection::setValue($formField, 'name', 'myTestName');
-		TestReflection::setValue($formField, 'value', 'This is textarea text.');
+		foreach ($data as $attr => $value)
+		{
+			TestReflection::setValue($formField, $attr, $value);
+		}
 
 		$this->assertEquals(
-			'<textarea name="myTestName" id="myTestId" >This is textarea text.</textarea>',
+			$expected,
 			TestReflection::invoke($formField, 'getInput'),
-			'Line:' . __LINE__ . ' The field with value attribute did not produce the right html'
-		);
-	}
-
-	/**
-	 * Test the getInput method when field has rows and cols from the element.
-	 *
-	 * @return  void
-	 *
-	 * @since   12.2
-	 */
-	public function testGetInputRowsColumns()
-	{
-		$formField = new JFormFieldTextarea;
-
-		TestReflection::setValue($formField, 'id', 'myTestId');
-		TestReflection::setValue($formField, 'name', 'myTestName');
-		TestReflection::setValue($formField, 'rows', 55);
-		TestReflection::setValue($formField, 'columns', 80);
-
-		$this->assertEquals(
-			'<textarea name="myTestName" id="myTestId" cols="80" rows="55" ></textarea>',
-			TestReflection::invoke($formField, 'getInput'),
-			'Line:' . __LINE__ . ' The field with rows and columns attribute did not produce the right html'
-		);
-	}
-
-	/**
-	 * Test the getInput method when field has class from the element.
-	 *
-	 * @return  void
-	 *
-	 * @since   12.2
-	 */
-	public function testGetInputClass()
-	{
-		$formField = new JFormFieldTextarea;
-
-		TestReflection::setValue($formField, 'id', 'myTestId');
-		TestReflection::setValue($formField, 'name', 'myTestName');
-		TestReflection::setValue($formField, 'class', 'foo bar');
-
-		$this->assertEquals(
-			'<textarea name="myTestName" id="myTestId" class="foo bar" ></textarea>',
-			TestReflection::invoke($formField, 'getInput'),
-			'Line:' . __LINE__ . ' The field with class attribute did not produce the right html'
-		);
-	}
-
-	/**
-	 * Test the getInput method when field has hint from the element.
-	 *
-	 * @return  void
-	 *
-	 * @since   12.2
-	 */
-	public function testGetInputHint()
-	{
-		$formField = new JFormFieldTextarea;
-
-		TestReflection::setValue($formField, 'id', 'myTestId');
-		TestReflection::setValue($formField, 'name', 'myTestName');
-		TestReflection::setValue($formField, 'hint', 'Placeholder for textarea.');
-
-		$this->assertEquals(
-			'<textarea name="myTestName" id="myTestId" placeholder="Placeholder for textarea." ></textarea>',
-			TestReflection::invoke($formField, 'getInput'),
-			'Line:' . __LINE__ . ' The field with hint attribute did not produce the right html'
-		);
-	}
-
-	/**
-	 * Test the getInput method when field has disabled and readonly from the element.
-	 *
-	 * @return  void
-	 *
-	 * @since   12.2
-	 */
-	public function testGetInputDisabledReadonly()
-	{
-		$formField = new JFormFieldTextarea;
-
-		TestReflection::setValue($formField, 'id', 'myTestId');
-		TestReflection::setValue($formField, 'name', 'myTestName');
-		TestReflection::setValue($formField, 'disabled', true);
-		TestReflection::setValue($formField, 'readonly', true);
-
-		$this->assertEquals(
-			'<textarea name="myTestName" id="myTestId" disabled readonly ></textarea>',
-			TestReflection::invoke($formField, 'getInput'),
-			'Line:' . __LINE__ . ' The field with disabled and readonly attribute did not produce the right html'
-		);
-	}
-
-	/**
-	 * Test the getInput method when field has onchange and onclick from the element.
-	 *
-	 * @return  void
-	 *
-	 * @since   12.2
-	 */
-	public function testGetInputOnchangeOnclick()
-	{
-		$formField = new JFormFieldTextarea;
-
-		TestReflection::setValue($formField, 'id', 'myTestId');
-		TestReflection::setValue($formField, 'name', 'myTestName');
-		TestReflection::setValue($formField, 'onchange', 'foobar();');
-		TestReflection::setValue($formField, 'onclick', 'barfoo();');
-
-		$this->assertEquals(
-			'<textarea name="myTestName" id="myTestId" onchange="foobar();" onclick="barfoo();" ></textarea>',
-			TestReflection::invoke($formField, 'getInput'),
-			'Line:' . __LINE__ . ' The field with onchange and onclick attribute did not produce the right html'
-		);
-	}
-
-	/**
-	 * Test the getInput method when field has required set from the element.
-	 *
-	 * @return  void
-	 *
-	 * @since   12.2
-	 */
-	public function testGetInputRequired()
-	{
-		$formField = new JFormFieldTextarea;
-
-		TestReflection::setValue($formField, 'id', 'myTestId');
-		TestReflection::setValue($formField, 'name', 'myTestName');
-		TestReflection::setValue($formField, 'required', true);
-
-		$this->assertEquals(
-			'<textarea name="myTestName" id="myTestId" required aria-required="true" ></textarea>',
-			TestReflection::invoke($formField, 'getInput'),
-			'Line:' . __LINE__ . ' The field with required attribute did not produce the right html'
-		);
-	}
-
-	/**
-	 * Test the getInput method when field has autocomplete set from the element.
-	 *
-	 * @return  void
-	 *
-	 * @since   12.2
-	 */
-	public function testGetInputAutocomplete()
-	{
-		$formField = new JFormFieldTextarea;
-
-		TestReflection::setValue($formField, 'id', 'myTestId');
-		TestReflection::setValue($formField, 'name', 'myTestName');
-		TestReflection::setValue($formField, 'autocomplete', 'off');
-
-		$this->assertEquals(
-			'<textarea name="myTestName" id="myTestId" autocomplete="off" ></textarea>',
-			TestReflection::invoke($formField, 'getInput'),
-			'Line:' . __LINE__ . ' The field with autocomplete attribute did not produce the right html'
-		);
-
-		TestReflection::setValue($formField, 'autocomplete', 'on');
-
-		$this->assertEquals(
-			'<textarea name="myTestName" id="myTestId" ></textarea>',
-			TestReflection::invoke($formField, 'getInput'),
-			'Line:' . __LINE__ . ' The field with autocomplete attribute did not produce the right html'
-		);
-
-		TestReflection::setValue($formField, 'autocomplete', 'on name');
-
-		$this->assertEquals(
-			'<textarea name="myTestName" id="myTestId" autocomplete="on name" ></textarea>',
-			TestReflection::invoke($formField, 'getInput'),
-			'Line:' . __LINE__ . ' The field with autocomplete attribute did not produce the right html'
-		);
-	}
-
-	/**
-	 * Test the getInput method when field has autofocus set from the element.
-	 *
-	 * @return  void
-	 *
-	 * @since   12.2
-	 */
-	public function testGetInputAutofocus()
-	{
-		$formField = new JFormFieldTextarea;
-
-		TestReflection::setValue($formField, 'id', 'myTestId');
-		TestReflection::setValue($formField, 'name', 'myTestName');
-		TestReflection::setValue($formField, 'autofocus', true);
-
-		$this->assertEquals(
-			'<textarea name="myTestName" id="myTestId" autofocus ></textarea>',
-			TestReflection::invoke($formField, 'getInput'),
-			'Line:' . __LINE__ . ' The field with autofocus attribute did not produce the right html'
+			'Line:' . __LINE__ . ' The field with no value and no checked attribute did not produce the right html'
 		);
 	}
 }

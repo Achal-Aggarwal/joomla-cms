@@ -8,13 +8,13 @@
  */
 
 /**
- * Data set class for JHtmlFieldUrl.
+ * Data set class for JHtmlFieldRange.
  *
  * @package     Joomla.UnitTest
  * @subpackage  HTML
  * @since       3.1
  */
-class JHtmlFieldUrlTest_DataSet
+class JHtmlFieldRangeTest_DataSet
 {
 	static public $getInputTest = array(
 		'NoValue' => array(
@@ -22,16 +22,16 @@ class JHtmlFieldUrlTest_DataSet
 				'id' => 'myTestId',
 				'name' => 'myTestName',
 			),
-			'<input type="url" name="myTestName" id="myTestId" value="" />',
+			'<input type="range" name="myTestName" id="myTestId" value="0" />',
 		),
 
 		'Value' => array(
 			array(
 				'id' => 'myTestId',
 				'name' => 'myTestName',
-				'value' => 'http://foobar.com',
+				'value' => '2',
 			),
-			'<input type="url" name="myTestName" id="myTestId" value="http://foobar.com" />',
+			'<input type="range" name="myTestName" id="myTestId" value="2" />',
 		),
 
 		'Class' => array(
@@ -40,7 +40,7 @@ class JHtmlFieldUrlTest_DataSet
 				'name' => 'myTestName',
 				'class' => 'foo bar',
 			),
-			'<input type="url" name="myTestName" class="foo bar" id="myTestId" value="" />',
+			'<input type="range" name="myTestName" id="myTestId" value="0" class="foo bar" />',
 		),
 
 		'Size' => array(
@@ -49,7 +49,7 @@ class JHtmlFieldUrlTest_DataSet
 				'name' => 'myTestName',
 				'size' => 60,
 			),
-			'<input type="url" name="myTestName" id="myTestId" value="" size="60" />',
+			'<input type="range" name="myTestName" id="myTestId" value="0" size="60" />',
 		),
 
 		'Disabled' => array(
@@ -58,7 +58,7 @@ class JHtmlFieldUrlTest_DataSet
 				'name' => 'myTestName',
 				'disabled' => true,
 			),
-			'<input type="url" name="myTestName" id="myTestId" value="" disabled />',
+			'<input type="range" name="myTestName" id="myTestId" value="0" disabled />',
 		),
 
 		'Readonly' => array(
@@ -67,16 +67,16 @@ class JHtmlFieldUrlTest_DataSet
 				'name' => 'myTestName',
 				'readonly' => true,
 			),
-			'<input type="url" name="myTestName" id="myTestId" value="" readonly />',
+			'<input type="range" name="myTestName" id="myTestId" value="0" readonly />',
 		),
 
 		'Hint' => array(
 			array(
 				'id' => 'myTestId',
 				'name' => 'myTestName',
-				'hint' => 'Type any url.',
+				'hint' => 'Type any text.',
 			),
-			'<input type="url" name="myTestName" id="myTestId" value="" placeholder="Type any url." />',
+			'<input type="range" name="myTestName" id="myTestId" value="0" placeholder="Type any text." />',
 		),
 
 		'Autocomplete' => array(
@@ -85,7 +85,7 @@ class JHtmlFieldUrlTest_DataSet
 				'name' => 'myTestName',
 				'autocomplete' => false,
 			),
-			'<input type="url" name="myTestName" id="myTestId" value="" autocomplete="off" />',
+			'<input type="range" name="myTestName" id="myTestId" value="0" autocomplete="off" />',
 		),
 
 		'Autofocus' => array(
@@ -94,16 +94,7 @@ class JHtmlFieldUrlTest_DataSet
 				'name' => 'myTestName',
 				'autofocus' => true,
 			),
-			'<input type="url" name="myTestName" id="myTestId" value="" autofocus />',
-		),
-
-		'Spellcheck' => array(
-			array(
-				'id' => 'myTestId',
-				'name' => 'myTestName',
-				'spellcheck' => false,
-			),
-			'<input type="url" name="myTestName" id="myTestId" value="" spellcheck="false" />',
+			'<input type="range" name="myTestName" id="myTestId" value="0" autofocus />',
 		),
 
 		'Onchange' => array(
@@ -112,7 +103,7 @@ class JHtmlFieldUrlTest_DataSet
 				'name' => 'myTestName',
 				'onchange' => 'foobar();',
 			),
-			'<input type="url" name="myTestName" id="myTestId" value="" onchange="foobar();" />',
+			'<input type="range" name="myTestName" id="myTestId" value="0" onchange="foobar();" />',
 		),
 
 		'Maxlength' => array(
@@ -121,7 +112,7 @@ class JHtmlFieldUrlTest_DataSet
 				'name' => 'myTestName',
 				'maxLength' => 250,
 			),
-			'<input type="url" name="myTestName" id="myTestId" value="" maxlength="250" />',
+			'<input type="range" name="myTestName" id="myTestId" value="0" maxlength="250" />',
 		),
 
 		'Required' => array(
@@ -130,7 +121,7 @@ class JHtmlFieldUrlTest_DataSet
 				'name' => 'myTestName',
 				'required' => true,
 			),
-			'<input type="url" name="myTestName" id="myTestId" value="" required aria-required="true" />',
+			'<input type="range" name="myTestName" id="myTestId" value="0" required aria-required="true" />',
 		),
 
 	);
