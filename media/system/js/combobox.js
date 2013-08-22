@@ -234,6 +234,8 @@
 				$optionToHover = $visibleOptions.eq(index);
 				self.$currHovered = $optionToHover;
 				self.$currHovered.addClass('hover');
+
+				scrollTo(self.$dropDown, self.$currHovered);
 			}
 			else if(newHighlight == "clear")
 			{
@@ -252,6 +254,18 @@
 		        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && /*or $(window).height() */
 		        rect.right <= (window.innerWidth || document.documentElement.clientWidth) /*or $(window).width() */
 		        );
+		},
+
+		scrollTo = function(p, e)
+		{
+			z = p[0].getBoundingClientRect();
+			r = e[0].getBoundingClientRect();
+
+			if(!(r.top >= z.top && r.left >= z.left && (r.top+r.height) <= (z.top+z.height)))
+			{
+				var value = r.top - z.top + p.scrollTop();
+				p.scrollTop(value);
+			}
 		},
 
 		preventSubmit = function(event)
