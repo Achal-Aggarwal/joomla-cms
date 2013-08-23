@@ -158,6 +158,14 @@ abstract class JFormField
 	protected $multiple = false;
 
 	/**
+	 * The pattern (Reg Ex) of value of the form field.
+	 *
+	 * @var    string
+	 * @since  11.1
+	 */
+	protected $pattern;
+
+	/**
 	 * The name of the form field.
 	 *
 	 * @var    string
@@ -461,6 +469,7 @@ abstract class JFormField
 		$hidden = (string) $element['hidden'];
 		$inputmode = (string) $element['inputmode'];
 		$dirname = (string) $element['dirname'];
+		$pattern = (string) $element['pattern'];
 
 		// Set the required, disabled, readonly, multiple and validation options.
 		$this->required = ($required == 'true' || $required == 'required' || $required == '1');
@@ -498,6 +507,9 @@ abstract class JFormField
 
 		// Set the field description text.
 		$this->description = (string) $element['description'];
+
+		// Set the field paatern expression.
+		$this->pattern = (string) $element['pattern'];
 
 		// Set the field hint text.
 		$this->hint = (string) $element['hint'];

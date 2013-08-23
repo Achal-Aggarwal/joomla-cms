@@ -102,6 +102,7 @@ class JFormFieldText extends JFormField
 		$autocomplete = $autocomplete == ' autocomplete="on"' ? '' : $autocomplete;
 		$autofocus = $this->autofocus ? ' autofocus' : '';
 		$spellcheck = $this->spellcheck ? '' : ' spellcheck="false"';
+		$pattern = !empty($this->pattern) ? ' pattern="' . $this->pattern . '"' : '';
 		$inputmode = !empty($this->inputmode) ? ' inputmode="' . $this->inputmode . '"' : '';
 		$dirname = !empty($this->dirname) ? ' dirname="' . $this->dirname . '"' : '';
 		$list = '';
@@ -124,7 +125,7 @@ class JFormFieldText extends JFormField
 
 		$html[] = '<input type="text" name="' . $this->name . '" id="' . $this->id . '"' . $dirname . ' value="'
 			. htmlspecialchars($this->value, ENT_COMPAT, 'UTF-8') . '"' . $class . $size . $disabled . $readonly . $list
-			. $hint . $onchange . $maxLength . $required . $autocomplete . $autofocus . $spellcheck . $inputmode . ' />';
+			. $hint . $onchange . $maxLength . $required . $autocomplete . $autofocus . $spellcheck . $inputmode . $pattern . ' />';
 
 		return implode($html);
 	}
