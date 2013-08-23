@@ -9,6 +9,8 @@
 
 defined('JPATH_PLATFORM') or die;
 
+JFormHelper::loadFieldClass('number');
+
 /**
  * Form Field class for the Joomla Platform.
  * Supports a one line text field.
@@ -39,7 +41,6 @@ class JFormFieldRange extends JFormFieldNumber
 	protected function getInput()
 	{
 		// Initialize some field attributes.
-		$size = !empty($this->size) ? ' size="' . $this->size . '"' : '';
 		$max = !empty($this->max) ? ' max="' . $this->max . '"' : '';
 		$min = !empty($this->min) ? ' min="' . $this->min . '"' : '';
 		$step = !empty($this->step) ? ' step="' . $this->step . '"' : '';
@@ -60,7 +61,7 @@ class JFormFieldRange extends JFormFieldNumber
 		JHtml::_('script', 'system/html5fallback.js', false, true);
 
 		return '<input type="range" name="' . $this->name . '" id="' . $this->id . '"' . ' value="'
-			. htmlspecialchars($value, ENT_COMPAT, 'UTF-8') . '"' . $class . $size . $disabled . $readonly
+			. htmlspecialchars($value, ENT_COMPAT, 'UTF-8') . '"' . $class . $disabled . $readonly
 			. $onchange . $max . $step . $min . $autofocus . ' />';
 	}
 }
