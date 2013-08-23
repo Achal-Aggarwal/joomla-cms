@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+require_once __DIR__ . '/TestHelpers/JHtmlFieldNumber-helper-dataset.php';
+
 /**
  * Test class for JFormFieldUrl.
  *
@@ -105,308 +107,41 @@ class JFormFieldNumberTest extends TestCase
 	}
 
 	/**
+	 * Test...
+	 *
+	 * @return  array
+	 *
+	 * @since   3.1
+	 */
+	public function getInputData()
+	{
+		return JHtmlFieldNumberTest_DataSet::$getInputTest;
+	}
+
+	/**
 	 * Test the getInput method where there is no value from the element
 	 * and no checked attribute.
 	 *
-	 * @return  void
-	 *
-	 * @since   12.2
-	 */
-	public function testGetInputNoValue()
-	{
-		$formField = new JFormFieldNumber;
-
-		TestReflection::setValue($formField, 'id', 'myTestId');
-		TestReflection::setValue($formField, 'name', 'myTestName');
-
-		$this->assertEquals(
-			'<input type="number" name="myTestName" id="myTestId" value="0" />',
-			TestReflection::invoke($formField, 'getInput'),
-			'Line:' . __LINE__ . ' The field with no value and no checked attribute did not produce the right html'
-		);
-	}
-
-	/**
-	 * Test the getInput method where there is value from the element
-	 * and no checked attribute.
+	 * @param   array   $data  	   @todo
+	 * @param   string  $expected  @todo
 	 *
 	 * @return  void
 	 *
 	 * @since   12.2
+	 *
+	 * @dataProvider  getInputData
 	 */
-	public function testGetInputValue()
+	public function testGetInput($data, $expected)
 	{
 		$formField = new JFormFieldNumber;
 
-		TestReflection::setValue($formField, 'id', 'myTestId');
-		TestReflection::setValue($formField, 'name', 'myTestName');
-		TestReflection::setValue($formField, 'value', '2');
+		foreach ($data as $attr => $value)
+		{
+			TestReflection::setValue($formField, $attr, $value);
+		}
 
 		$this->assertEquals(
-			'<input type="number" name="myTestName" id="myTestId" value="2" />',
-			TestReflection::invoke($formField, 'getInput'),
-			'Line:' . __LINE__ . ' The field with no value and no checked attribute did not produce the right html'
-		);
-	}
-
-	/**
-	 * Test the getInput method when field has class set from xml
-	 * and no checked attribute.
-	 *
-	 * @return  void
-	 *
-	 * @since   12.2
-	 */
-	public function testGetInputClass()
-	{
-		$formField = new JFormFieldNumber;
-
-		TestReflection::setValue($formField, 'id', 'myTestId');
-		TestReflection::setValue($formField, 'name', 'myTestName');
-		TestReflection::setValue($formField, 'class', 'foo bar');
-
-		$this->assertEquals(
-			'<input type="number" name="myTestName" id="myTestId" value="0" class="foo bar" />',
-			TestReflection::invoke($formField, 'getInput'),
-			'Line:' . __LINE__ . ' The field with no value and no checked attribute did not produce the right html'
-		);
-	}
-
-	/**
-	 * Test the getInput method when field has size set from xml
-	 * and no checked attribute.
-	 *
-	 * @return  void
-	 *
-	 * @since   12.2
-	 */
-	public function testGetInputSize()
-	{
-		$formField = new JFormFieldNumber;
-
-		TestReflection::setValue($formField, 'id', 'myTestId');
-		TestReflection::setValue($formField, 'name', 'myTestName');
-		TestReflection::setValue($formField, 'size', 60);
-
-		$this->assertEquals(
-			'<input type="number" name="myTestName" id="myTestId" value="0" size="60" />',
-			TestReflection::invoke($formField, 'getInput'),
-			'Line:' . __LINE__ . ' The field with no value and no checked attribute did not produce the right html'
-		);
-	}
-
-	/**
-	 * Test the getInput method when field has disabled and readonly set from xml
-	 * and no checked attribute.
-	 *
-	 * @return  void
-	 *
-	 * @since   12.2
-	 */
-	public function testGetInputDisabledReadonly()
-	{
-		$formField = new JFormFieldNumber;
-
-		TestReflection::setValue($formField, 'id', 'myTestId');
-		TestReflection::setValue($formField, 'name', 'myTestName');
-		TestReflection::setValue($formField, 'disabled', true);
-		TestReflection::setValue($formField, 'readonly', true);
-
-		$this->assertEquals(
-			'<input type="number" name="myTestName" id="myTestId" value="0" disabled readonly />',
-			TestReflection::invoke($formField, 'getInput'),
-			'Line:' . __LINE__ . ' The field with no value and no checked attribute did not produce the right html'
-		);
-	}
-
-	/**
-	 * Test the getInput method when field has hint (placeholder) set from xml
-	 * and no checked attribute.
-	 *
-	 * @return  void
-	 *
-	 * @since   12.2
-	 */
-	public function testGetInputHint()
-	{
-		$formField = new JFormFieldNumber;
-
-		TestReflection::setValue($formField, 'id', 'myTestId');
-		TestReflection::setValue($formField, 'name', 'myTestName');
-		TestReflection::setValue($formField, 'hint', 'Type any number.');
-
-		$this->assertEquals(
-			'<input type="number" name="myTestName" id="myTestId" value="0" placeholder="Type any number." />',
-			TestReflection::invoke($formField, 'getInput'),
-			'Line:' . __LINE__ . ' The field with no value and no checked attribute did not produce the right html'
-		);
-	}
-
-	/**
-	 * Test the getInput method when field has autocomplete set to off from xml
-	 * and no checked attribute.
-	 *
-	 * @return  void
-	 *
-	 * @since   12.2
-	 */
-	public function testGetInputAutocomplete()
-	{
-		$formField = new JFormFieldNumber;
-
-		TestReflection::setValue($formField, 'id', 'myTestId');
-		TestReflection::setValue($formField, 'name', 'myTestName');
-		TestReflection::setValue($formField, 'autocomplete', false);
-
-		$this->assertEquals(
-			'<input type="number" name="myTestName" id="myTestId" value="0" autocomplete="off" />',
-			TestReflection::invoke($formField, 'getInput'),
-			'Line:' . __LINE__ . ' The field with no value and no checked attribute did not produce the right html'
-		);
-	}
-
-	/**
-	 * Test the getInput method when field has autofocus set to true from xml
-	 * and no checked attribute.
-	 *
-	 * @return  void
-	 *
-	 * @since   12.2
-	 */
-	public function testGetInputAutofocus()
-	{
-		$formField = new JFormFieldNumber;
-
-		TestReflection::setValue($formField, 'id', 'myTestId');
-		TestReflection::setValue($formField, 'name', 'myTestName');
-		TestReflection::setValue($formField, 'autofocus', true);
-
-		$this->assertEquals(
-			'<input type="number" name="myTestName" id="myTestId" value="0" autofocus />',
-			TestReflection::invoke($formField, 'getInput'),
-			'Line:' . __LINE__ . ' The field with no value and no checked attribute did not produce the right html'
-		);
-	}
-
-	/**
-	 * Test the getInput method when field has onchange set to js function from xml
-	 * and no checked attribute.
-	 *
-	 * @return  void
-	 *
-	 * @since   12.2
-	 */
-	public function testGetInputOnchange()
-	{
-		$formField = new JFormFieldNumber;
-
-		TestReflection::setValue($formField, 'id', 'myTestId');
-		TestReflection::setValue($formField, 'name', 'myTestName');
-		TestReflection::setValue($formField, 'onchange', 'foobar();');
-
-		$this->assertEquals(
-			'<input type="number" name="myTestName" id="myTestId" value="0" onchange="foobar();" />',
-			TestReflection::invoke($formField, 'getInput'),
-			'Line:' . __LINE__ . ' The field with no value and no checked attribute did not produce the right html'
-		);
-	}
-
-	/**
-	 * Test the getInput method when field has max set from xml
-	 * and no checked attribute.
-	 *
-	 * @return  void
-	 *
-	 * @since   12.2
-	 */
-	public function testGetInputMax()
-	{
-		$formField = new JFormFieldNumber;
-
-		TestReflection::setValue($formField, 'id', 'myTestId');
-		TestReflection::setValue($formField, 'name', 'myTestName');
-		TestReflection::setValue($formField, 'max', 250);
-
-		$this->assertEquals(
-			'<input type="number" name="myTestName" id="myTestId" value="0" max="250" />',
-			TestReflection::invoke($formField, 'getInput'),
-			'Line:' . __LINE__ . ' The field with no value and no checked attribute did not produce the right html'
-		);
-
-		// Floating max
-		TestReflection::setValue($formField, 'max', 250.245);
-
-		$this->assertEquals(
-			'<input type="number" name="myTestName" id="myTestId" value="0" max="250.245" />',
-			TestReflection::invoke($formField, 'getInput'),
-			'Line:' . __LINE__ . ' The field with no value and no checked attribute did not produce the right html'
-		);
-	}
-
-	/**
-	 * Test the getInput method when field has min set from xml
-	 * and no checked attribute.
-	 *
-	 * @return  void
-	 *
-	 * @since   12.2
-	 */
-	public function testGetInputMin()
-	{
-		$formField = new JFormFieldNumber;
-
-		TestReflection::setValue($formField, 'id', 'myTestId');
-		TestReflection::setValue($formField, 'name', 'myTestName');
-		TestReflection::setValue($formField, 'min', 50.625);
-
-		$this->assertEquals(
-			'<input type="number" name="myTestName" id="myTestId" value="50.625" min="50.625" />',
-			TestReflection::invoke($formField, 'getInput'),
-			'Line:' . __LINE__ . ' The field with no value and no checked attribute did not produce the right html'
-		);
-	}
-
-	/**
-	 * Test the getInput method when field has step set from xml
-	 * and no checked attribute.
-	 *
-	 * @return  void
-	 *
-	 * @since   12.2
-	 */
-	public function testGetInputStep()
-	{
-		$formField = new JFormFieldNumber;
-
-		TestReflection::setValue($formField, 'id', 'myTestId');
-		TestReflection::setValue($formField, 'name', 'myTestName');
-		TestReflection::setValue($formField, 'step', 5.9);
-
-		$this->assertEquals(
-			'<input type="number" name="myTestName" id="myTestId" value="0" step="5.9" />',
-			TestReflection::invoke($formField, 'getInput'),
-			'Line:' . __LINE__ . ' The field with no value and no checked attribute did not produce the right html'
-		);
-	}
-
-	/**
-	 * Test the getInput method when field has required set from xml
-	 * and no checked attribute.
-	 *
-	 * @return  void
-	 *
-	 * @since   12.2
-	 */
-	public function testGetInputRequired()
-	{
-		$formField = new JFormFieldNumber;
-
-		TestReflection::setValue($formField, 'id', 'myTestId');
-		TestReflection::setValue($formField, 'name', 'myTestName');
-		TestReflection::setValue($formField, 'required', true);
-
-		$this->assertEquals(
-			'<input type="number" name="myTestName" id="myTestId" value="0" required aria-required="true" />',
+			$expected,
 			TestReflection::invoke($formField, 'getInput'),
 			'Line:' . __LINE__ . ' The field with no value and no checked attribute did not produce the right html'
 		);
