@@ -57,9 +57,15 @@
 					}
 				});
 			}
-			$form.on('focusout focusin', self.polyfill);
+			$form.on('focusout focusin', function(event){
+				self.placeholder(self, event.target, event.type);
+			});
+
 			$form.on('focusout change', self.validateField);
-			$form.find('fieldset').on('change',function(){self.validateField(this);});
+
+			$form.find('fieldset').on('change',function(){
+				self.validateField(this);
+			});
 
 			if(!self.browser.isFormnovalidateNative){
 				$form.find(':submit[formnovalidate]').on('click',function(){
@@ -74,11 +80,11 @@
 			}
 		},
 
-		polyfill : function(event){
-			var elem = event.target || event;
+		polyfill : function(elem){
 			if(elem.nodeName.toLowerCase() === 'form')return true;
 			var	self = elem.form.H5Form;
-			self.placeholder(self, elem, event.type);
+			self.placeholder(self, elem);
+			self.numberType(self, elem);
 		},
 
 		checkSupport : function(self){
@@ -88,6 +94,18 @@
 			self.browser.isPlaceholderNative = !!("placeholder" in self.field);
 			self.browser.isAutofocusNative = !!("autofocus" in self.field);
 			self.browser.isFormnovalidateNative = !!("formnovalidate" in self.field);
+
+			self.field.setAttribute('type', 'email');
+			self.browser.isEmailNative = (self.field.type == 'email');
+
+			self.field.setAttribute('type', 'url');
+			self.browser.isUrlNative = (self.field.type == 'url');
+
+			self.field.setAttribute('type', 'number');
+			self.browser.isNumberNative = (self.field.type == 'number');
+
+			self.field.setAttribute('type', 'range');
+			self.browser.isRangeNative = (self.field.type == 'range');
 		},
 
 		validateForm : function(){
@@ -202,7 +220,10 @@
 
 		matchPattern : function(self, elem){
 			var $elem = $(elem),
-				val = !self.browser.isPlaceholderNative && $elem.attr('placeholder') && $elem.hasClass(self.options.placeholderClass),
+				val = !self.browser.isPlaceholderNative && 
+						$elem.attr('placeholder') && 
+						$elem.hasClass(self.options.placeholderClass) ? 
+							'' : $elem.attr('value'),
 				pattern = $elem.attr('pattern'),
 				type = $elem.attr('type');
 			if(val !== ""){
@@ -247,6 +268,42 @@
 	                $elem.removeClass(self.options.placeholderClass);
 	            }
 	        }
+	    },
+
+	    numberType : function(self, elem) {
+	    	var $elem = $(elem);
+	    		node = /^input$/i,
+	    		type = $elem.attr('type');
+
+			if(node.test(elem.nodeName) && ((type == "number" && !self.browser.isNumberNative) || (type == "range" && !self.browser.isRangeNative)))
+			{
+
+				var min = parseInt($elem.attr('min')),
+					max = parseInt($elem.attr('max')),
+					step = parseInt($elem.attr('step')),
+					value = parseInt($elem.attr('value')),
+					attributes = $elem.prop("attributes"),
+					$select = $('<select>'),
+					$option;
+
+				min = isNaN(min) ? -100 : min;
+
+				for (var i=min; i <= max ; i+=step) {
+					$option = $("<option>").attr('value',i).text(i);
+
+					if(value == i || (value > i && value < i + step)){
+						$option.attr('selected','');
+					}
+
+					$select.append($option);
+				}
+
+				$.each(attributes, function() {
+					$select.attr(this.name, this.value);
+				});
+
+				$elem.replaceWith($select);
+			}
 	    },
 
 	    autofocus : function(self, elem){
