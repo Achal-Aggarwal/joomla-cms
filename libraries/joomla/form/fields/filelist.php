@@ -34,7 +34,7 @@ class JFormFieldFileList extends JFormFieldList
 	 * The filter.
 	 *
 	 * @var    string
-	 * @since  11.1
+	 * @since  3.2
 	 */
 	protected $filter;
 
@@ -42,7 +42,7 @@ class JFormFieldFileList extends JFormFieldList
 	 * The exclude.
 	 *
 	 * @var    string
-	 * @since  11.1
+	 * @since  3.2
 	 */
 	protected $exclude;
 
@@ -50,7 +50,7 @@ class JFormFieldFileList extends JFormFieldList
 	 * The hideNone.
 	 *
 	 * @var    boolean
-	 * @since  11.1
+	 * @since  3.2
 	 */
 	protected $hideNone = false;
 
@@ -58,7 +58,7 @@ class JFormFieldFileList extends JFormFieldList
 	 * The hideDefault.
 	 *
 	 * @var    boolean
-	 * @since  11.1
+	 * @since  3.2
 	 */
 	protected $hideDefault = false;
 
@@ -66,7 +66,7 @@ class JFormFieldFileList extends JFormFieldList
 	 * The stripExt.
 	 *
 	 * @var    boolean
-	 * @since  11.1
+	 * @since  3.2
 	 */
 	protected $stripExt = false;
 
@@ -74,7 +74,7 @@ class JFormFieldFileList extends JFormFieldList
 	 * The directory.
 	 *
 	 * @var    string
-	 * @since  11.1
+	 * @since  3.2
 	 */
 	protected $directory;
 
@@ -85,7 +85,7 @@ class JFormFieldFileList extends JFormFieldList
 	 *
 	 * @return  mixed  The property value or null.
 	 *
-	 * @since   11.1
+	 * @since   3.2
 	 */
 	public function __get($name)
 	{
@@ -115,7 +115,7 @@ class JFormFieldFileList extends JFormFieldList
 	 * @return  boolean  True on success.
 	 *
 	 * @see 	JFormField::setup()
-	 * @since   11.1
+	 * @since   3.2
 	 */
 	public function setup(SimpleXMLElement $element, $value, $group = null)
 	{

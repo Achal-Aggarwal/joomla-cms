@@ -32,7 +32,7 @@ class JFormFieldTextarea extends JFormField
 	 * The number of rows in textarea.
 	 *
 	 * @var    mixed
-	 * @since  11.1
+	 * @since  3.2
 	 */
 	protected $rows;
 
@@ -40,7 +40,7 @@ class JFormFieldTextarea extends JFormField
 	 * The number of columns in textarea.
 	 *
 	 * @var    mixed
-	 * @since  11.1
+	 * @since  3.2
 	 */
 	protected $columns;
 
@@ -51,7 +51,7 @@ class JFormFieldTextarea extends JFormField
 	 *
 	 * @return  mixed  The property value or null.
 	 *
-	 * @since   11.1
+	 * @since   3.2
 	 */
 	public function __get($name)
 	{
@@ -77,7 +77,7 @@ class JFormFieldTextarea extends JFormField
 	 * @return  boolean  True on success.
 	 *
 	 * @see 	JFormField::setup()
-	 * @since   11.1
+	 * @since   3.2
 	 */
 	public function setup(SimpleXMLElement $element, $value, $group = null)
 	{

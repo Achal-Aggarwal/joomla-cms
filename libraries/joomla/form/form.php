@@ -1276,6 +1276,7 @@ class JForm
 					}
 				}
 
+				$value = JStringPunycode::urlToPunycode($value);
 				$return = $value;
 				break;
 

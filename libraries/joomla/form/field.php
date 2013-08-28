@@ -30,7 +30,7 @@ abstract class JFormField
 	 * The hint text for the form field used to display hint inside the field.
 	 *
 	 * @var    string
-	 * @since  11.1
+	 * @since  3.2
 	 */
 	protected $hint;
 
@@ -38,7 +38,7 @@ abstract class JFormField
 	 * The mode of input associated with the field.
 	 *
 	 * @var    mixed
-	 * @since  11.1
+	 * @since  3.2
 	 */
 	protected $inputmode;
 
@@ -47,7 +47,7 @@ abstract class JFormField
 	 * completed by browser.
 	 *
 	 * @var    mixed
-	 * @since  11.1
+	 * @since  3.2
 	 */
 	protected $autocomplete = 'on';
 
@@ -55,7 +55,7 @@ abstract class JFormField
 	 * The spellcheck state for the form field.
 	 *
 	 * @var    boolean
-	 * @since  11.1
+	 * @since  3.2
 	 */
 	protected $spellcheck = true;
 
@@ -64,7 +64,7 @@ abstract class JFormField
 	 * focused on document load.
 	 *
 	 * @var    boolean
-	 * @since  11.1
+	 * @since  3.2
 	 */
 	protected $autofocus = false;
 
@@ -120,7 +120,7 @@ abstract class JFormField
 	 * True to translate the field hint string.
 	 *
 	 * @var    boolean
-	 * @since  11.1
+	 * @since  3.2
 	 */
 	protected $translateHint = true;
 
@@ -177,7 +177,7 @@ abstract class JFormField
 	 * The name of the form field direction (ltr or rtl).
 	 *
 	 * @var    string
-	 * @since  11.1
+	 * @since  3.2
 	 */
 	protected $dirname;
 
@@ -202,7 +202,7 @@ abstract class JFormField
 	 * be considered valid.
 	 *
 	 * @var    boolean
-	 * @since  11.1
+	 * @since  11.11
 	 */
 	protected $required = false;
 
@@ -211,7 +211,7 @@ abstract class JFormField
 	 * interact with the field.
 	 *
 	 * @var    boolean
-	 * @since  11.1
+	 * @since  3.2
 	 */
 	protected $disabled = false;
 
@@ -219,7 +219,7 @@ abstract class JFormField
 	 * The readonly state for the form field. If true then the field will be readonly.
 	 *
 	 * @var    boolean
-	 * @since  11.1
+	 * @since  3.2
 	 */
 	protected $readonly = false;
 
@@ -260,7 +260,7 @@ abstract class JFormField
 	 * The size of the form field.
 	 *
 	 * @var    int
-	 * @since  11.1
+	 * @since  3.2
 	 */
 	protected $size;
 
@@ -268,7 +268,7 @@ abstract class JFormField
 	 * The class of the form field
 	 *
 	 * @var    mixed
-	 * @since  11.1
+	 * @since  3.2
 	 */
 	protected $class;
 
@@ -284,7 +284,7 @@ abstract class JFormField
 	* The javascript onchange of the form field.
 	*
 	* @var    string
-	* @since  11.1
+	* @since  3.2
 	*/
 	protected $onchange;
 
@@ -292,7 +292,7 @@ abstract class JFormField
 	* The javascript onclick of the form field.
 	*
 	* @var    string
-	* @since  11.1
+	* @since  3.2
 	*/
 	protected $onclick;
 
@@ -469,7 +469,6 @@ abstract class JFormField
 		$hidden = (string) $element['hidden'];
 		$inputmode = (string) $element['inputmode'];
 		$dirname = (string) $element['dirname'];
-		$pattern = (string) $element['pattern'];
 
 		// Set the required, disabled, readonly, multiple and validation options.
 		$this->required = ($required == 'true' || $required == 'required' || $required == '1');
@@ -508,7 +507,7 @@ abstract class JFormField
 		// Set the field description text.
 		$this->description = (string) $element['description'];
 
-		// Set the field paatern expression.
+		// Set the field pattern expression.
 		$this->pattern = (string) $element['pattern'];
 
 		// Set the field hint text.

@@ -33,7 +33,7 @@ class JFormFieldPassword extends JFormField
 	 * The threshold of password field.
 	 *
 	 * @var    int
-	 * @since  11.1
+	 * @since  3.2
 	 */
 	protected $threshold = 66;
 
@@ -41,7 +41,7 @@ class JFormFieldPassword extends JFormField
 	 * The allowable maxlength of password.
 	 *
 	 * @var    int
-	 * @since  11.1
+	 * @since  3.2
 	 */
 	protected $maxLength;
 
@@ -49,7 +49,7 @@ class JFormFieldPassword extends JFormField
 	 * Whether to attach a password strength meter or not.
 	 *
 	 * @var    boolean
-	 * @since  11.1
+	 * @since  3.2
 	 */
 	protected $meter = false;
 
@@ -60,7 +60,7 @@ class JFormFieldPassword extends JFormField
 	 *
 	 * @return  mixed  The property value or null.
 	 *
-	 * @since   11.1
+	 * @since   3.2
 	 */
 	public function __get($name)
 	{
@@ -87,7 +87,7 @@ class JFormFieldPassword extends JFormField
 	 * @return  boolean  True on success.
 	 *
 	 * @see 	JFormField::setup()
-	 * @since   11.1
+	 * @since   3.2
 	 */
 	public function setup(SimpleXMLElement $element, $value, $group = null)
 	{
@@ -128,14 +128,19 @@ class JFormFieldPassword extends JFormField
 		if ($this->meter)
 		{
 			JHtml::_('script', 'system/passwordstrength.js', true, true);
-			$script = '<script type="text/javascript">new Form.PasswordStrength("' . $this->id . '",
+			$script = 'new Form.PasswordStrength("' . $this->id . '",
 				{
 					threshold: ' . $this->threshold . ',
 					onUpdate: function(element, strength, threshold) {
 						element.set("data-passwordstrength", strength);
 					}
 				}
-			);</script>';
+			);';
+
+			// Load script on document load.
+			JFactory::getDocument()->addScriptDeclaration(
+				"jQuery(document).ready(function(){" . $script . "});"
+			);
 		}
 
 		// Including fallback code for HTML5 non supported browsers.
@@ -144,6 +149,6 @@ class JFormFieldPassword extends JFormField
 
 		return '<input type="password" name="' . $this->name . '" id="' . $this->id . '"' .
 			' value="' . htmlspecialchars($this->value, ENT_COMPAT, 'UTF-8') . '"' . $hint . $autocomplete .
-			$class . $readonly . $disabled . $size . $maxLength . $required . $autofocus . ' />' . $script;
+			$class . $readonly . $disabled . $size . $maxLength . $required . $autofocus . ' />';
 	}
 }

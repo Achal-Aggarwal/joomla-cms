@@ -33,7 +33,7 @@ class JFormFieldText extends JFormField
 	 * The allowable maxlength of the field.
 	 *
 	 * @var    int
-	 * @since  11.1
+	 * @since  3.2
 	 */
 	protected $maxLength;
 
@@ -44,7 +44,7 @@ class JFormFieldText extends JFormField
 	 *
 	 * @return  mixed  The property value or null.
 	 *
-	 * @since   11.1
+	 * @since   3.2
 	 */
 	public function __get($name)
 	{
@@ -69,7 +69,7 @@ class JFormFieldText extends JFormField
 	 * @return  boolean  True on success.
 	 *
 	 * @see 	JFormField::setup()
-	 * @since   11.1
+	 * @since   3.2
 	 */
 	public function setup(SimpleXMLElement $element, $value, $group = null)
 	{
