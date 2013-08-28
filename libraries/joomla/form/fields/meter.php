@@ -11,12 +11,12 @@ defined('JPATH_PLATFORM') or die;
 
 /**
  * Form Field class for the Joomla Platform.
- * Supports a one line text field.
+ * Provides a meter to show value in a range.
  *
  * @package     Joomla.Platform
  * @subpackage  Form
  * @link        http://www.w3.org/TR/html-markup/input.text.html#input.text
- * @since       11.1
+ * @since       3.2
  */
 class JFormFieldMeter extends JFormFieldNumber
 {
@@ -25,7 +25,7 @@ class JFormFieldMeter extends JFormFieldNumber
 	 *
 	 * @var    string
 	 *
-	 * @since  11.1
+	 * @since  3.2
 	 */
 	protected $type = 'Meter';
 
@@ -33,7 +33,7 @@ class JFormFieldMeter extends JFormFieldNumber
 	 * The width of the field increased or decreased.
 	 *
 	 * @var    string
-	 * @since  11.1
+	 * @since  3.2
 	 */
 	protected $width;
 
@@ -41,7 +41,7 @@ class JFormFieldMeter extends JFormFieldNumber
 	 * Whether the field is active or not.
 	 *
 	 * @var    boolean
-	 * @since  11.1
+	 * @since  3.2
 	 */
 	protected $active = false;
 
@@ -49,7 +49,7 @@ class JFormFieldMeter extends JFormFieldNumber
 	 * Whether the field is animated or not.
 	 *
 	 * @var    boolean
-	 * @since  11.1
+	 * @since  3.2
 	 */
 	protected $animated = true;
 
@@ -57,7 +57,7 @@ class JFormFieldMeter extends JFormFieldNumber
 	 * The color od the field
 	 *
 	 * @var    boolean
-	 * @since  11.1
+	 * @since  3.2
 	 */
 	protected $color;
 
@@ -68,7 +68,7 @@ class JFormFieldMeter extends JFormFieldNumber
 	 *
 	 * @return  mixed  The property value or null.
 	 *
-	 * @since   11.1
+	 * @since   3.2
 	 */
 	public function __get($name)
 	{
@@ -96,7 +96,7 @@ class JFormFieldMeter extends JFormFieldNumber
 	 * @return  boolean  True on success.
 	 *
 	 * @see 	JFormField::setup()
-	 * @since   11.1
+	 * @since   3.2
 	 */
 	public function setup(SimpleXMLElement $element, $value, $group = null)
 	{
@@ -117,7 +117,7 @@ class JFormFieldMeter extends JFormFieldNumber
 	 *
 	 * @return  string  The field input markup.
 	 *
-	 * @since   11.1
+	 * @since   3.2
 	 */
 	protected function getInput()
 	{
