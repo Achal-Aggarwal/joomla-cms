@@ -13,12 +13,12 @@ JFormHelper::loadFieldClass('number');
 
 /**
  * Form Field class for the Joomla Platform.
- * Supports a one line text field.
+ * Provides a horizontal scroll bar to specify a value in a range.
  *
  * @package     Joomla.Platform
  * @subpackage  Form
  * @link        http://www.w3.org/TR/html-markup/input.text.html#input.text
- * @since       11.1
+ * @since       3.2
  */
 class JFormFieldRange extends JFormFieldNumber
 {
@@ -27,7 +27,7 @@ class JFormFieldRange extends JFormFieldNumber
 	 *
 	 * @var    string
 	 *
-	 * @since  11.1
+	 * @since  3.2
 	 */
 	protected $type = 'Range';
 
@@ -36,7 +36,7 @@ class JFormFieldRange extends JFormFieldNumber
 	 *
 	 * @return  string  The field input markup.
 	 *
-	 * @since   11.1
+	 * @since   3.2
 	 */
 	protected function getInput()
 	{

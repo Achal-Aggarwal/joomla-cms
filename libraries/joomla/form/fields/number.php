@@ -11,12 +11,12 @@ defined('JPATH_PLATFORM') or die;
 
 /**
  * Form Field class for the Joomla Platform.
- * Supports a one line text field.
+ * Provides a one line text box with up-down handles to set a number in the field.
  *
  * @package     Joomla.Platform
  * @subpackage  Form
  * @link        http://www.w3.org/TR/html-markup/input.text.html#input.text
- * @since       11.1
+ * @since       3.2
  */
 class JFormFieldNumber extends JFormField
 {
@@ -25,7 +25,7 @@ class JFormFieldNumber extends JFormField
 	 *
 	 * @var    string
 	 *
-	 * @since  11.1
+	 * @since  3.2
 	 */
 	protected $type = 'Number';
 
@@ -33,7 +33,7 @@ class JFormFieldNumber extends JFormField
 	 * The allowable maximum value of the field.
 	 *
 	 * @var    float
-	 * @since  11.1
+	 * @since  3.2
 	 */
 	protected $max = 0;
 
@@ -41,7 +41,7 @@ class JFormFieldNumber extends JFormField
 	 * The allowable minimum value of the field.
 	 *
 	 * @var    float
-	 * @since  11.1
+	 * @since  3.2
 	 */
 	protected $min = 0;
 
@@ -49,7 +49,7 @@ class JFormFieldNumber extends JFormField
 	 * The step by which value of the field increased or decreased.
 	 *
 	 * @var    float
-	 * @since  11.1
+	 * @since  3.2
 	 */
 	protected $step = 0;
 
@@ -60,7 +60,7 @@ class JFormFieldNumber extends JFormField
 	 *
 	 * @return  mixed  The property value or null.
 	 *
-	 * @since   11.1
+	 * @since   3.2
 	 */
 	public function __get($name)
 	{
@@ -87,7 +87,7 @@ class JFormFieldNumber extends JFormField
 	 * @return  boolean  True on success.
 	 *
 	 * @see 	JFormField::setup()
-	 * @since   11.1
+	 * @since   3.2
 	 */
 	public function setup(SimpleXMLElement $element, $value, $group = null)
 	{
@@ -103,7 +103,7 @@ class JFormFieldNumber extends JFormField
 	 *
 	 * @return  string  The field input markup.
 	 *
-	 * @since   11.1
+	 * @since   3.2
 	 */
 	protected function getInput()
 	{
