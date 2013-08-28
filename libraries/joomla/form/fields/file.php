@@ -32,7 +32,7 @@ class JFormFieldFile extends JFormField
 	 * The accepted file type list.
 	 *
 	 * @var    mixed
-	 * @since  11.1
+	 * @since  3.2
 	 */
 	protected $accept;
 
@@ -43,7 +43,7 @@ class JFormFieldFile extends JFormField
 	 *
 	 * @return  mixed  The property value or null.
 	 *
-	 * @since   11.1
+	 * @since   3.2
 	 */
 	public function __get($name)
 	{
@@ -68,7 +68,7 @@ class JFormFieldFile extends JFormField
 	 * @return  boolean  True on success.
 	 *
 	 * @see 	JFormField::setup()
-	 * @since   11.1
+	 * @since   3.2
 	 */
 	public function setup(SimpleXMLElement $element, $value, $group = null)
 	{

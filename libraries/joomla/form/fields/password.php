@@ -33,7 +33,7 @@ class JFormFieldPassword extends JFormField
 	 * The threshold of password field.
 	 *
 	 * @var    int
-	 * @since  11.1
+	 * @since  3.2
 	 */
 	protected $threshold = 66;
 
@@ -41,7 +41,7 @@ class JFormFieldPassword extends JFormField
 	 * The allowable maxlength of password.
 	 *
 	 * @var    int
-	 * @since  11.1
+	 * @since  3.2
 	 */
 	protected $maxLength;
 
@@ -49,7 +49,7 @@ class JFormFieldPassword extends JFormField
 	 * Whether to attach a password strength meter or not.
 	 *
 	 * @var    boolean
-	 * @since  11.1
+	 * @since  3.2
 	 */
 	protected $meter = false;
 
@@ -60,7 +60,7 @@ class JFormFieldPassword extends JFormField
 	 *
 	 * @return  mixed  The property value or null.
 	 *
-	 * @since   11.1
+	 * @since   3.2
 	 */
 	public function __get($name)
 	{
@@ -87,7 +87,7 @@ class JFormFieldPassword extends JFormField
 	 * @return  boolean  True on success.
 	 *
 	 * @see 	JFormField::setup()
-	 * @since   11.1
+	 * @since   3.2
 	 */
 	public function setup(SimpleXMLElement $element, $value, $group = null)
 	{

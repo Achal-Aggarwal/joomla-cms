@@ -37,7 +37,7 @@ class JFormFieldTel extends JFormFieldText
 	 *
 	 * @return  string  The field input markup.
 	 *
-	 * @since   3.1.2 (CMS)
+	 * @since   3.2
 	 */
 	protected function getInput()
 	{
