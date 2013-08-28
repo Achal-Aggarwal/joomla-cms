@@ -33,7 +33,7 @@ class JFormFieldCalendar extends JFormField
 	 * The allowable maxlength of calendar field.
 	 *
 	 * @var    int
-	 * @since  11.1
+	 * @since  3.2
 	 */
 	protected $maxlength;
 
@@ -41,7 +41,7 @@ class JFormFieldCalendar extends JFormField
 	 * The format of date and time.
 	 *
 	 * @var    int
-	 * @since  11.1
+	 * @since  3.2
 	 */
 	protected $format;
 
@@ -49,7 +49,7 @@ class JFormFieldCalendar extends JFormField
 	 * The filter.
 	 *
 	 * @var    int
-	 * @since  11.1
+	 * @since  3.2
 	 */
 	protected $filter;
 
@@ -60,7 +60,7 @@ class JFormFieldCalendar extends JFormField
 	 *
 	 * @return  mixed  The property value or null.
 	 *
-	 * @since   11.1
+	 * @since   3.2
 	 */
 	public function __get($name)
 	{
@@ -87,7 +87,7 @@ class JFormFieldCalendar extends JFormField
 	 * @return  boolean  True on success.
 	 *
 	 * @see 	JFormField::setup()
-	 * @since   11.1
+	 * @since   3.2
 	 */
 	public function setup(SimpleXMLElement $element, $value, $group = null)
 	{

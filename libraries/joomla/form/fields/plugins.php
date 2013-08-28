@@ -32,7 +32,7 @@ class JFormFieldPlugins extends JFormFieldList
 	 * The path to folder for plugins.
 	 *
 	 * @var    string
-	 * @since  11.1
+	 * @since  3.2
 	 */
 	protected $folder;
 
@@ -43,7 +43,7 @@ class JFormFieldPlugins extends JFormFieldList
 	 *
 	 * @return  mixed  The property value or null.
 	 *
-	 * @since   11.1
+	 * @since   3.2
 	 */
 	public function __get($name)
 	{
@@ -68,7 +68,7 @@ class JFormFieldPlugins extends JFormFieldList
 	 * @return  boolean  True on success.
 	 *
 	 * @see 	JFormField::setup()
-	 * @since   11.1
+	 * @since   3.2
 	 */
 	public function setup(SimpleXMLElement $element, $value, $group = null)
 	{

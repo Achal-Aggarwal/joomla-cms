@@ -32,7 +32,7 @@ class JFormFieldColor extends JFormField
 	 * The control.
 	 *
 	 * @var    mixed
-	 * @since  11.1
+	 * @since  3.2
 	 */
 	protected $control = 'hue';
 
@@ -40,7 +40,7 @@ class JFormFieldColor extends JFormField
 	 * The position.
 	 *
 	 * @var    mixed
-	 * @since  11.1
+	 * @since  3.2
 	 */
 	protected $position = 'right';
 
@@ -48,7 +48,7 @@ class JFormFieldColor extends JFormField
 	 * The colors.
 	 *
 	 * @var    mixed
-	 * @since  11.1
+	 * @since  3.2
 	 */
 	protected $colors;
 
@@ -56,7 +56,7 @@ class JFormFieldColor extends JFormField
 	 * The split.
 	 *
 	 * @var    int
-	 * @since  11.1
+	 * @since  3.2
 	 */
 	protected $split = 3;
 
@@ -67,7 +67,7 @@ class JFormFieldColor extends JFormField
 	 *
 	 * @return  mixed  The property value or null.
 	 *
-	 * @since   11.1
+	 * @since   3.2
 	 */
 	public function __get($name)
 	{
@@ -95,7 +95,7 @@ class JFormFieldColor extends JFormField
 	 * @return  boolean  True on success.
 	 *
 	 * @see 	JFormField::setup()
-	 * @since   11.1
+	 * @since   3.2
 	 */
 	public function setup(SimpleXMLElement $element, $value, $group = null)
 	{

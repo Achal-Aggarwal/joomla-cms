@@ -32,7 +32,7 @@ class JFormFieldRules extends JFormField
 	 * The section.
 	 *
 	 * @var    string
-	 * @since  11.1
+	 * @since  3.2
 	 */
 	protected $section;
 
@@ -40,7 +40,7 @@ class JFormFieldRules extends JFormField
 	 * The component.
 	 *
 	 * @var    string
-	 * @since  11.1
+	 * @since  3.2
 	 */
 	protected $component;
 
@@ -48,7 +48,7 @@ class JFormFieldRules extends JFormField
 	 * The assetField.
 	 *
 	 * @var    string
-	 * @since  11.1
+	 * @since  3.2
 	 */
 	protected $assetField;
 
@@ -59,7 +59,7 @@ class JFormFieldRules extends JFormField
 	 *
 	 * @return  mixed  The property value or null.
 	 *
-	 * @since   11.1
+	 * @since   3.2
 	 */
 	public function __get($name)
 	{
@@ -86,7 +86,7 @@ class JFormFieldRules extends JFormField
 	 * @return  boolean  True on success.
 	 *
 	 * @see 	JFormField::setup()
-	 * @since   11.1
+	 * @since   3.2
 	 */
 	public function setup(SimpleXMLElement $element, $value, $group = null)
 	{

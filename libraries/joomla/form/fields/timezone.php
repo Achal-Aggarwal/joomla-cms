@@ -41,7 +41,7 @@ class JFormFieldTimezone extends JFormFieldGroupedList
 	 * The number of rows in timezone field.
 	 *
 	 * @var    mixed
-	 * @since  11.1
+	 * @since  3.2
 	 */
 	protected $rows;
 
@@ -49,7 +49,7 @@ class JFormFieldTimezone extends JFormFieldGroupedList
 	 * The keyField of timezone field.
 	 *
 	 * @var    integer
-	 * @since  11.1
+	 * @since  3.2
 	 */
 	protected $keyField;
 
@@ -60,7 +60,7 @@ class JFormFieldTimezone extends JFormFieldGroupedList
 	 *
 	 * @return  mixed  The property value or null.
 	 *
-	 * @since   11.1
+	 * @since   3.2
 	 */
 	public function __get($name)
 	{
@@ -86,7 +86,7 @@ class JFormFieldTimezone extends JFormFieldGroupedList
 	 * @return  boolean  True on success.
 	 *
 	 * @see 	JFormField::setup()
-	 * @since   11.1
+	 * @since   3.2
 	 */
 	public function setup(SimpleXMLElement $element, $value, $group = null)
 	{
