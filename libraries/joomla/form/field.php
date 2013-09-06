@@ -364,7 +364,6 @@ abstract class JFormField
 			case 'autofocus':
 			case 'autocomplete':
 			case 'spellcheck':
-			case 'hint':
 				return $this->$name;
 
 			case 'input':
