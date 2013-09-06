@@ -38,6 +38,22 @@ class JFormFieldText extends JFormField
 	protected $maxLength;
 
 	/**
+	 * The mode of input associated with the field.
+	 *
+	 * @var    mixed
+	 * @since  3.2
+	 */
+	protected $inputmode;
+
+	/**
+	 * The name of the form field direction (ltr or rtl).
+	 *
+	 * @var    string
+	 * @since  3.2
+	 */
+	protected $dirname;
+
+	/**
 	 * Method to get certain otherwise inaccessible properties from the form field object.
 	 *
 	 * @param   string  $name  The property name for which to the the value.
@@ -51,6 +67,8 @@ class JFormFieldText extends JFormField
 		switch ($name)
 		{
 			case 'maxLength':
+			case 'dirname':
+			case 'inputmode':
 				return $this->$name;
 		}
 
@@ -73,9 +91,37 @@ class JFormFieldText extends JFormField
 	 */
 	public function setup(SimpleXMLElement $element, $value, $group = null)
 	{
-		$this->maxLength = (int) $element['maxlength'];
+		$result = parent::setup($element, $value, $group);
 
-		return parent::setup($element, $value, $group);
+		if ($result == true)
+		{
+			$inputmode = (string) $element['inputmode'];
+			$dirname = (string) $element['dirname'];
+
+			$this->inputmode = '';
+			$inputmode = preg_replace('/\s+/', ' ', trim($inputmode));
+			$inputmode = explode(' ', $inputmode);
+
+			if (!empty($inputmode))
+			{
+				$defaultInputmode = in_array('default', $inputmode) ? JText::_("JLIB_FORM_INPUTMODE") . ' ' : '';
+
+				foreach (array_keys($inputmode, 'default') as $key)
+				{
+					unset($inputmode[$key]);
+				}
+
+				$this->inputmode = $defaultInputmode . implode(" ", $inputmode);
+			}
+
+			// Set the dirname.
+			$dirname = ((string) $dirname == 'dirname' || $dirname == 'true' || $dirname == '1');
+			$this->dirname = $dirname ? $this->getName($this->fieldname . '_dir') : false;
+
+			$this->maxLength = (int) $element['maxlength'];
+		}
+
+		return $result;
 	}
 
 	/**

@@ -35,14 +35,6 @@ abstract class JFormField
 	protected $hint;
 
 	/**
-	 * The mode of input associated with the field.
-	 *
-	 * @var    mixed
-	 * @since  3.2
-	 */
-	protected $inputmode;
-
-	/**
 	 * The autocomplete state for the form field. If 'off' element will not be automatically
 	 * completed by browser.
 	 *
@@ -172,14 +164,6 @@ abstract class JFormField
 	 * @since  11.1
 	 */
 	protected $name;
-
-	/**
-	 * The name of the form field direction (ltr or rtl).
-	 *
-	 * @var    string
-	 * @since  3.2
-	 */
-	protected $dirname;
 
 	/**
 	 * The name of the field.
@@ -381,8 +365,6 @@ abstract class JFormField
 			case 'autocomplete':
 			case 'spellcheck':
 			case 'hint':
-			case 'dirname':
-			case 'inputmode':
 				return $this->$name;
 
 			case 'input':
@@ -467,8 +449,6 @@ abstract class JFormField
 		$autocomplete = (string) $element['autocomplete'];
 		$spellcheck = (string) $element['spellcheck'];
 		$hidden = (string) $element['hidden'];
-		$inputmode = (string) $element['inputmode'];
-		$dirname = (string) $element['dirname'];
 
 		// Set the required, disabled, readonly, multiple and validation options.
 		$this->required = ($required == 'true' || $required == 'required' || $required == '1');
@@ -481,22 +461,6 @@ abstract class JFormField
 
 		// Removes spaces from left & right and extra spaces from middle
 		$this->class = preg_replace('/\s+/', ' ', trim($class));
-
-		$this->inputmode = '';
-		$inputmode = preg_replace('/\s+/', ' ', trim($inputmode));
-		$inputmode = explode(' ', $inputmode);
-
-		if (!empty($inputmode))
-		{
-			$defaultInputmode = in_array('default', $inputmode) ? JText::_("JLIB_FORM_INPUTMODE") . ' ' : '';
-
-			foreach (array_keys($inputmode, 'default') as $key)
-			{
-				unset($inputmode[$key]);
-			}
-
-			$this->inputmode = $defaultInputmode . implode(" ", $inputmode);
-		}
 
 		// Allow for field classes to force the multiple values option.
 		if (isset($this->forceMultiple))
@@ -525,10 +489,6 @@ abstract class JFormField
 
 		// Set the visibility.
 		$this->hidden = ((string) $element['type'] == 'hidden' || $hidden == 'true' || $hidden == '1');
-
-		// Set the dirname.
-		$dirname = ((string) $dirname == 'dirname' || $dirname == 'true' || $dirname == '1');
-		$this->dirname = $dirname ? $this->getName($this->fieldname . '_dir') : false;
 
 		// Set the javascript onchange and onclick method.
 		$this->onclick = (string) $element['onclick'];
