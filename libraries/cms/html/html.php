@@ -480,6 +480,7 @@ abstract class JHtml
 									}
 								}
 							}
+
 							// Try to deal with system files in the media folder
 							else
 							{
@@ -498,6 +499,7 @@ abstract class JHtml
 					}
 				}
 			}
+
 			// If not relative and http is not present in filename
 			else
 			{
@@ -644,6 +646,7 @@ abstract class JHtml
 				return $includes;
 			}
 		}
+
 		// If inclusion is required
 		else
 		{
@@ -697,6 +700,7 @@ abstract class JHtml
 				return $includes;
 			}
 		}
+
 		// If inclusion is required
 		else
 		{
@@ -761,6 +765,7 @@ abstract class JHtml
 			// Set the correct time zone based on the user configuration.
 			$date->setTimeZone(new DateTimeZone($user->getParam('timezone', $config->get('offset'))));
 		}
+
 		// UTC date converted to server time zone.
 		elseif ($tz === false)
 		{
@@ -770,11 +775,13 @@ abstract class JHtml
 			// Set the correct time zone based on the server configuration.
 			$date->setTimeZone(new DateTimeZone($config->get('offset')));
 		}
+
 		// No date conversion.
 		elseif ($tz === null)
 		{
 			$date = JFactory::getDate($input);
 		}
+
 		// UTC date converted to given time zone.
 		else
 		{
@@ -790,6 +797,7 @@ abstract class JHtml
 		{
 			$format = JText::_('DATE_FORMAT_LC1');
 		}
+
 		// $format is an existing language key
 		elseif (JFactory::getLanguage()->hasKey($format))
 		{
@@ -964,7 +972,7 @@ abstract class JHtml
 
 		$readonly = isset($attribs['readonly']) && $attribs['readonly'] == 'readonly';
 		$disabled = isset($attribs['disabled']) && $attribs['disabled'] == 'disabled';
-		$attribs['class'] .= ' hasTooltip';
+		$attribs['class'] = isset($attribs['class']) ? $attribs['class'] . ' hasTooltip' : 'hasTooltip';
 
 		if (is_array($attribs))
 		{
