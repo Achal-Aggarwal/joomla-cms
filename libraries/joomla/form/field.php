@@ -392,6 +392,78 @@ abstract class JFormField
 	}
 
 	/**
+	 * Method to get certain otherwise inaccessible properties from the form field object.
+	 *
+	 * @param   string  $name   The property name for which to the the value.
+	 * @param   mixed   $value  The value of the property
+	 *
+	 * @return  mixed  The property value or null.
+	 *
+	 * @since   11.1
+	 */
+	public function __set($name, $value)
+	{
+		$value = (string) $value;
+
+		switch ($name)
+		{
+			case 'class':
+				// Removes spaces from left & right and extra spaces from middle
+				$value = preg_replace('/\s+/', ' ', trim($value));
+			case 'description':
+			case 'hint':
+			case 'value':
+			case 'labelClass':
+			case 'onchange':
+			case 'onclick':
+			case 'validate':
+			case 'pattern':
+			case 'default':
+				$this->$name = $value;
+				break;
+
+			case 'id':
+				$this->id = $this->getId($value, $this->fieldname);
+				break;
+
+			case 'fieldname':
+				$this->fieldname = $this->getFieldName($value);
+				break;
+
+			case 'name':
+				$this->fieldname = $this->getFieldName($value);
+				$this->name = $this->getName($this->fieldname);
+				break;
+
+			case 'multiple':
+				// Allow for field classes to force the multiple values option.
+				$value = $value === '' && isset($this->forceMultiple) ? (string) $this->forceMultiple : $value;
+			case 'required':
+			case 'disabled':
+			case 'readonly':
+			case 'autofocus':
+			case 'hidden':
+				$this->$name = ($value === 'true' || $value === 'required' || $value === '1');
+				break;
+
+			case 'autocomplete':
+				$value = ($value == 'on' || $value == '') ? 'on' : $value;
+				$this->$name = ($value === 'false' || $value === 'off' || $value === '0') ? false : $value;
+				break;
+
+			case 'spellcheck':
+			case 'translateLabel':
+			case 'translateDescription':
+			case 'translateHint':
+				$this->$name = !($value === 'false' || $value === 'off' || $value === '0');
+				break;
+
+			case 'size':
+				$this->$name = (int) $value;
+		}
+	}
+
+	/**
 	 * Method to attach a JForm object to the field.
 	 *
 	 * @param   JForm  $form  The JForm object to attach to the form field.
@@ -436,84 +508,27 @@ abstract class JFormField
 		// Set the XML element object.
 		$this->element = $element;
 
-		// Get some important attributes from the form field element.
-		$class = (string) $element['class'];
-		$id = (string) $element['id'];
-		$multiple = (string) $element['multiple'];
-		$name = (string) $element['name'];
-		$required = (string) $element['required'];
-		$disabled = (string) $element['disabled'];
-		$readonly = (string) $element['readonly'];
-		$autofocus = (string) $element['autofocus'];
-		$autocomplete = (string) $element['autocomplete'];
-		$spellcheck = (string) $element['spellcheck'];
-		$hidden = (string) $element['hidden'];
-
-		// Set the required, disabled, readonly, multiple and validation options.
-		$this->required = ($required == 'true' || $required == 'required' || $required == '1');
-		$this->disabled = ($disabled == 'true' || $disabled == 'disabled' || $disabled == '1');
-		$this->multiple = ($multiple == 'true' || $multiple == 'multiple' || $multiple == '1');
-		$this->readonly = ($readonly == 'true' || $readonly == 'readonly' || $readonly == '1');
-
-		$this->validate = (string) $element['validate'];
-		$this->default = isset($element['value']) ? (string) $element['value'] : (string) $element['default'];
-
-		// Removes spaces from left & right and extra spaces from middle
-		$this->class = preg_replace('/\s+/', ' ', trim($class));
-
-		// Allow for field classes to force the multiple values option.
-		if (isset($this->forceMultiple))
-		{
-			$this->multiple = (bool) $this->forceMultiple;
-		}
-
-		// Set the field description text.
-		$this->description = (string) $element['description'];
-
-		// Set the field pattern expression.
-		$this->pattern = (string) $element['pattern'];
-
-		// Set the field hint text.
-		$this->hint = (string) $element['hint'];
-
-		// Determine whether to automatically fill the field or not.
-		$autocomplete = $autocomplete == '' ? 'on' : $autocomplete;
-		$this->autocomplete = ($autocomplete == 'false' || $autocomplete == 'off' || $autocomplete == '0') ? false : $autocomplete;
-
-		// Determine whether to set focus on the field automatically or not.
-		$this->autofocus = ($autofocus == 'true' || $autofocus == 'on' || $autofocus == '1');
-
-		// Determine whether to off spellcheck or not.
-		$this->spellcheck = !($spellcheck == 'false' || $spellcheck == 'off' || $spellcheck == '0');
-
-		// Set the visibility.
-		$this->hidden = ((string) $element['type'] == 'hidden' || $hidden == 'true' || $hidden == '1');
-
-		// Set the javascript onchange and onclick method.
-		$this->onclick = (string) $element['onclick'];
-		$this->onchange = (string) $element['onchange'];
-
-		$this->size = (int) $element['size'];
-
-		// Determine whether to translate the field label and/or description and/or hint.
-		$this->translateLabel = !((string) $this->element['translate_label'] == 'false' || (string) $this->element['translate_label'] == '0');
-		$this->translateDescription = !((string) $this->element['translate_description'] == 'false'
-			|| (string) $this->element['translate_description'] == '0');
-		$this->translateHint = !((string) $this->element['translate_hint'] == 'false' || (string) $this->element['hint'] == '0');
-
 		// Set the group of the field.
 		$this->group = $group;
 
-		// Set the field name and id.
-		$this->fieldname = $this->getFieldName($name);
-		$this->name = $this->getName($this->fieldname);
-		$this->id = $this->getId($id, $this->fieldname);
+		$attributes = array(
+			'multiple', 'name', 'id', 'hint', 'class', 'description', 'labelClass', 'onchange',
+			'onclick', 'validate', 'pattern', 'default', 'required',
+			'disabled', 'readonly', 'autofocus', 'hidden', 'autocomplete', 'spellcheck',
+			'translateHint', 'translateLabel', 'translateDescription', 'size');
+
+		$this->default = isset($element['value']) ? (string) $element['value'] : $this->default;
 
 		// Set the field default value.
 		$this->value = $value;
 
-		// Set the CSS class of field label
-		$this->labelClass = (string) $element['labelclass'];
+		foreach ($attributes as $attributeName)
+		{
+			$this->__set($attributeName, $element[$attributeName]);
+		}
+
+		// Set the visibility.
+		$this->hidden = ($this->hidden || (string) $element['type'] == 'hidden');
 
 		return true;
 	}

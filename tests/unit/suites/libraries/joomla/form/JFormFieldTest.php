@@ -42,7 +42,7 @@ class JFormFieldTest extends TestCase
 
 		require_once JPATH_PLATFORM . '/joomla/form/fields/text.php';
 		require_once JPATH_PLATFORM . '/joomla/form/fields/hidden.php';
-		require_once JPATH_PLATFORM . '/joomla/form/fields/list.php';
+		require_once JPATH_PLATFORM . '/joomla/form/fields/checkboxes.php';
 
 		$this->saveFactoryState();
 
@@ -441,9 +441,9 @@ class JFormFieldTest extends TestCase
 	 */
 	public function testSetupForceMultiple()
 	{
-		$field = new JFormFieldList;
+		$field = new JFormFieldCheckboxes;
 		$element = simplexml_load_string('
-			<field type="list" name="myName">
+			<field type="checkboxes" name="myName">
 				<option value="red">Red</option>
 				<option value="blue">Blue</option>
 			</field>
