@@ -1191,6 +1191,9 @@ class JForm
 		// Get the field filter type.
 		$filter = (string) $element['filter'];
 
+		// If no filter is specified use its type as filter.
+		$filter = empty($filter) ? (string) $element['type'] : $filter;
+
 		// Process the input value based on the filter.
 		$return = null;
 
@@ -1327,7 +1330,7 @@ class JForm
 				}
 
 				$value = JStringPunycode::urlToPunycode($value);
-				$return = $value;
+				$return = htmlspecialchars($value, ENT_COMPAT, 'UTF-8');
 				break;
 
 			case 'TEL':
