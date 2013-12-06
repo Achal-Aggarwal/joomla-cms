@@ -24,14 +24,26 @@ Joomla.submitform = function(task, form) {
 		form.task.value = task;
 	}
 
-	// Submit the form.
-	if (typeof form.onsubmit == 'function') {
-		form.onsubmit();
+	//Create a button if it doesn't exist already
+	var button = document.getElementById('validateButton');
+
+	if (button == null) {
+		button = document.createElement("input");
+		button.setAttribute("type", "submit");
+		button.setAttribute("id", "validateButton");
+		button.setAttribute("style", "display:none;");
+		form.appendChild(button);
 	}
-	if (typeof form.fireEvent == "function") {
-		form.fireEvent('submit');
+
+	//If task is to cancel then don't validate the form
+	if (task.indexOf("cancel") != -1) {
+		button.setAttribute("formnovalidate", "");
 	}
-	form.submit();
+	else {
+		button.removeAttribute("formnovalidate");
+	}
+
+	fireClick(button);
 };
 
 /**
@@ -419,4 +431,16 @@ function checkAll_button(n, task) {
 		}
 	}
 	submitform(task);
+}
+
+function fireClick(node){
+	if ( document.createEvent ) {
+		var evt = document.createEvent('MouseEvents');
+		evt.initEvent('click', true, false);
+		node.dispatchEvent(evt);
+	} else if( document.createEventObject ) {
+		node.fireEvent('onclick') ;
+	} else if (typeof node.onclick == 'function' ) {
+		node.onclick();
+	}
 }
