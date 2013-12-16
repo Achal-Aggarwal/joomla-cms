@@ -66,7 +66,7 @@ if (isset($this->item->attribs['show_urls_images_backend']) && $this->item->attr
 <script type="text/javascript">
 	Joomla.submitbutton = function(task)
 	{
-		if (task == 'article.cancel' || document.formvalidator.isValid(document.id('item-form')))
+		if (task == 'article.cancel' || Joomla.validateForm(document.getElementById('item-form')))
 		{
 			<?php echo $this->form->getField('articletext')->save(); ?>
 			Joomla.submitform(task, document.getElementById('item-form'));
@@ -74,7 +74,7 @@ if (isset($this->item->attribs['show_urls_images_backend']) && $this->item->attr
 	}
 </script>
 
-<form action="<?php echo JRoute::_('index.php?option=com_content&layout=edit&id=' . (int) $this->item->id); ?>" method="post" name="adminForm" id="item-form" class="form-validate">
+<form action="<?php echo JRoute::_('index.php?option=com_content&layout=edit&id=' . (int) $this->item->id); ?>" method="post" name="adminForm" id="item-form" class="">
 
 	<?php echo JLayoutHelper::render('joomla.edit.title_alias', $this); ?>
 

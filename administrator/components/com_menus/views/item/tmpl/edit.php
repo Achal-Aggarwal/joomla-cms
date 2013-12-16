@@ -65,7 +65,7 @@ JFactory::getDocument()->addScriptDeclaration($script);
 				document.id('item-form').elements['jform[menutype]'].value = type;
 			}
 			Joomla.submitform('item.setType', document.id('item-form'));
-		} else if (task == 'item.cancel' || document.formvalidator.isValid(document.id('item-form')))
+		} else if (task == 'item.cancel' || Joomla.validateForm(document.id('item-form')))
 		{
 			Joomla.submitform(task, document.id('item-form'));
 		}
@@ -79,14 +79,11 @@ JFactory::getDocument()->addScriptDeclaration($script);
 				var name = idReversed.substr(separatorLocation).split("").reverse().join("") + 'name';
 				document.id(name).addClass('invalid');
 			});
-
-			$('system-message').getElement('h4').innerHTML  = Joomla.JText._('ERROR');
-			$('system-message').getElement('div').innerHTML = Joomla.JText._('JGLOBAL_VALIDATION_FORM_FAILED');
 		}
 	}
 </script>
 
-<form action="<?php echo JRoute::_('index.php?option=com_menus&layout=edit&id=' . (int) $this->item->id); ?>" method="post" name="adminForm" id="item-form" class="form-validate">
+<form action="<?php echo JRoute::_('index.php?option=com_menus&layout=edit&id=' . (int) $this->item->id); ?>" method="post" name="adminForm" id="item-form">
 
 	<?php
 	if ($this->item->type == 'url')

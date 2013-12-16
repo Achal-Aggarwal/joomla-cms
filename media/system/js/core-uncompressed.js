@@ -15,7 +15,7 @@ Joomla.editors.instances = {};
 /**
  * Generic submit form
  */
-Joomla.submitform = function(task, form, validateTask, doOrDontValidate) {
+Joomla.submitform = function(task, form) {
 	if (typeof(form) === 'undefined') {
 		form = document.getElementById('adminForm');
 	}
@@ -24,46 +24,14 @@ Joomla.submitform = function(task, form, validateTask, doOrDontValidate) {
 		form.task.value = task;
 	}
 
-	if (typeof(doOrDontValidate) === 'undefined') {
-		// Don't do validation on the task given in list of validateTask
-		doOrDontValidate = false;
+	// Submit the form.
+	if (typeof form.onsubmit == 'function') {
+		form.onsubmit();
 	}
-
-	if (typeof(validateTask) === 'undefined') {
-		validateTask = "";
-		doOrDontValidate = true;
+	if (typeof form.fireEvent == "function") {
+		form.fireEvent('submit');
 	}
-
-	//Create a button if it doesn't exist already
-	var button = document.getElementById('validateButton');
-
-	if (button == null) {
-		button = document.createElement("input");
-		button.setAttribute("type", "submit");
-		button.setAttribute("id", "validateButton");
-		button.setAttribute("style", "display:none;");
-		form.appendChild(button);
-	}
-
-	//If task is to cancel then don't validate the form.
-	if(doOrDontValidate){
-		if (validateTask.indexOf(task) != -1) {
-			button.removeAttribute("formnovalidate");
-		}
-		else{
-			button.setAttribute("formnovalidate", "");
-		}
-	}
-	else{
-		if (validateTask.indexOf(task) != -1) {
-			button.setAttribute("formnovalidate", "");
-		}
-		else {
-			button.removeAttribute("formnovalidate");
-		}
-	}
-
-	fireClick(button);
+	form.submit();
 };
 
 /**
@@ -71,6 +39,31 @@ Joomla.submitform = function(task, form, validateTask, doOrDontValidate) {
  */
 Joomla.submitbutton = function(pressbutton) {
 	Joomla.submitform(pressbutton);
+};
+
+Joomla.validateForm = function(form) {
+	if (typeof(form) === 'undefined') {
+		form = document.getElementById('adminForm');
+	}
+
+	var isValid = form.checkValidity();
+
+	if (!isValid) {
+		//Create a button if it doesn't exist already
+		var button = document.getElementById('validateButton');
+
+		if (button == null) {
+			button = document.createElement("input");
+			button.setAttribute("type", "submit");
+			button.setAttribute("id", "validateButton");
+			button.setAttribute("style", "display:none;");
+			form.appendChild(button);
+		}
+
+		fireClick(button);
+	}
+
+	return isValid;
 }
 
 /**

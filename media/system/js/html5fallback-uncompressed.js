@@ -78,6 +78,11 @@
 				self.polyfill(elem);
 				self.autofocus(self, elem);
 			}
+
+			if(typeof(form.checkValidity) == 'undefined')
+			{
+				form.checkValidity = self.validateForm;
+			}
 		},
 
 		polyfill : function(elem){
