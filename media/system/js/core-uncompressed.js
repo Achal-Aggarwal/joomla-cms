@@ -15,13 +15,23 @@ Joomla.editors.instances = {};
 /**
  * Generic submit form
  */
-Joomla.submitform = function(task, form) {
+Joomla.submitform = function(task, form, validateTask, doOrDontValidate) {
 	if (typeof(form) === 'undefined') {
 		form = document.getElementById('adminForm');
 	}
 
 	if (typeof(task) !== 'undefined' && task !== "") {
 		form.task.value = task;
+	}
+
+	if (typeof(doOrDontValidate) === 'undefined') {
+		// Don't do validation on the task given in list of validateTask
+		doOrDontValidate = false;
+	}
+
+	if (typeof(validateTask) === 'undefined') {
+		validateTask = "";
+		doOrDontValidate = true;
 	}
 
 	//Create a button if it doesn't exist already
@@ -35,12 +45,22 @@ Joomla.submitform = function(task, form) {
 		form.appendChild(button);
 	}
 
-	//If task is to cancel then don't validate the form
-	if (task.indexOf("cancel") != -1) {
-		button.setAttribute("formnovalidate", "");
+	//If task is to cancel then don't validate the form.
+	if(doOrDontValidate){
+		if (validateTask.indexOf(task) != -1) {
+			button.removeAttribute("formnovalidate");
+		}
+		else{
+			button.setAttribute("formnovalidate", "");
+		}
 	}
-	else {
-		button.removeAttribute("formnovalidate");
+	else{
+		if (validateTask.indexOf(task) != -1) {
+			button.setAttribute("formnovalidate", "");
+		}
+		else {
+			button.removeAttribute("formnovalidate");
+		}
 	}
 
 	fireClick(button);

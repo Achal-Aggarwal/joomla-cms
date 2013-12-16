@@ -163,7 +163,7 @@
 					$elem.removeClass(self.options.requiredClass);
 				}
 			}
-			
+
 			if(!self.browser.isPatternNative){
 				if(elem.validityState.patterMismatch){
 					$elem.addClass(self.options.patternClass);
@@ -172,7 +172,7 @@
 					$elem.removeClass(self.options.patternClass);
 				}
 			}
-			
+
 			if(!elem.validityState.valid){
 				$elem.addClass(self.options.invalidClass);
 				var $labelref = self.findLabel($elem);
@@ -185,6 +185,7 @@
 				$labelref.removeClass(self.options.invalidClass)
 				$labelref.attr('aria-invalid', 'false');
 			}
+
 			return elem.validityState.valid;
 		},
 
