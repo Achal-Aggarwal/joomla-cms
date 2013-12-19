@@ -43,18 +43,7 @@ class JFormFieldRange extends JFormFieldNumber
 		$value = (float) $this->value;
 
 		$displayData = array(
-			'autofocus' => (boolean) $this->autofocus,
-			'class' => (string) $this->class,
-			'disabled' => (boolean) $this->disabled,
-			'field' => $this,
-			'options' => $this->getOptions(),
-			'readonly' => (boolean) $this->readonly,
-			'required' => (boolean) $this->required,
-			'max' => $this->max,
-			'min' => $this->min,
-			'step' => $this->step,
-			'onchange' => $this->onchange,
-			'value' => empty($value) ? $this->min : $value,
+			'field' => $this
 			);
 
 		return JLayoutHelper::render('joomla.fields.range', $displayData);

@@ -350,6 +350,7 @@ abstract class JFormField
 		switch ($name)
 		{
 			case 'description':
+			case 'default':
 			case 'hint':
 			case 'formControl':
 			case 'hidden':
