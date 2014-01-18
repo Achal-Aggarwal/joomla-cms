@@ -60,14 +60,13 @@ class MediaControllerFile extends JControllerLegacy
 
 		if (($params->get('upload_maxsize', 0) * 1024 * 1024) != 0)
 		{
-			if (
-				$_SERVER['CONTENT_LENGTH'] > ($params->get('upload_maxsize', 0) * 1024 * 1024)
-				|| $_SERVER['CONTENT_LENGTH'] > (int) (ini_get('upload_max_filesize')) * 1024 * 1024
-				|| $_SERVER['CONTENT_LENGTH'] > (int) (ini_get('post_max_size')) * 1024 * 1024
-				|| (($_SERVER['CONTENT_LENGTH'] > (int) (ini_get('memory_limit')) * 1024 * 1024) && ((int) (ini_get('memory_limit')) != -1))
-			)
+			if ( $_SERVER['CONTENT_LENGTH'] > ($params->get('upload_maxsize', 0) * 1024 * 1024)
+				|| $_SERVER['CONTENT_LENGTH'] > return_bytes(ini_get('upload_max_filesize'))
+				|| $_SERVER['CONTENT_LENGTH'] > return_bytes(ini_get('post_max_size'))
+				|| (($_SERVER['CONTENT_LENGTH'] > return_bytes(ini_get('memory_limit')) && (int) (ini_get('memory_limit')) != -1)))
 			{
 				JError::raiseWarning(100, JText::_('COM_MEDIA_ERROR_WARNFILETOOLARGE'));
+
 				return false;
 			}
 		}
@@ -148,6 +147,25 @@ class MediaControllerFile extends JControllerLegacy
 		}
 
 		return true;
+	}
+
+	protected function return_bytes($val)
+	{
+		$val = trim($val);
+		$last = strtolower($val[strlen($val) - 1]);
+
+		switch ($last)
+		{
+			// The 'G' modifier is available since PHP 5.1.0
+			case 'g':
+				$val *= 1024;
+			case 'm':
+				$val *= 1024;
+			case 'k':
+				$val *= 1024;
+		}
+
+		return $val;
 	}
 
 	/**
